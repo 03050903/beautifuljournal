@@ -1,0 +1,24 @@
+<resources>
+
+    <color name="activity_main_bg">#ffffff</color>
+    <color name="activity_login_font">#ff000000</color>
+    <color name="default_pink_color">#ffe92e67</color>
+    <color name="sina_normal">#bc0000</color>
+    <color name="sina_pressed">#9b0000</color>
+    <color name="qq_normal">#06c2ea</color>
+    <color name="qq_pressed">#009dbe</color>
+    <color name="white">#FFFFFF</color>
+    <color name="guide1_text_bg">#FC65B0</color>
+    <color name="guide2_text_bg">#63BF9D</color>
+    <color name="guide3_text_bg">#FB7931</color>
+    <color name="grey_sub">#666666</color>
+    <color name="grey_first">#333333</color>
+    <color name="common_bg">#f7f7f7</color>
+    <color name="order_border_color">#e1000000</color>
+    <color name="transparent">#ffffffff</color>
+    
+    <color name="transparent_half">#80000000</color>
+    <color name="btn_default">#fe4980</color>
+    <color name="btn_pressed">#ff6699</color>
+    <color name="btn_disabled">#cccccc</color>
+</resources>

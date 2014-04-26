@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.maple.beautyjournal"
+          android:versionCode="1"
+          android:versionName="1.1">
+
+    <supports-screens
+            android:anyDensity="true"
+            android:largeScreens="true"
+            android:normalScreens="true"
+            android:xlargeScreens="true"/>
+
+    <uses-sdk
+            android:minSdkVersion="8"
+            android:targetSdkVersion="14"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    
+    
+    <application
+            android:name=".BeautyJournalApplication"
+            android:allowBackup="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name="com.maple.beautyjournal.MainActivity"
+                android:label="@string/app_name"
+                android:launchMode="singleTask"
+                android:windowSoftInputMode="adjustPan"
+                android:screenOrientation="portrait" android:noHistory="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        
+        <!-- for tencent -->
+        <activity
+		       android:name="com.tencent.tauth.AuthActivity"
+		       android:noHistory="true"
+		       android:launchMode="singleTask" >
+		    <intent-filter>
+		           <action android:name="android.intent.action.VIEW" />
+		           <category android:name="android.intent.category.DEFAULT" />
+		           <category android:name="android.intent.category.BROWSABLE" />
+		           <data android:scheme="tencent100556408" />
+		    </intent-filter>
+		 </activity>
+   		<activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+             android:screenOrientation="portrait" />
+        
+        <!--
+        <activity android:name="TestProgressWindow" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
+        <activity android:name=".LoginActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".RegisterActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ChangePasswordActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ArticleDetailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".ProductDetailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".MoreCommentActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".SubmitCommentActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".FeedbackActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".AboutActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".PCDListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".FindPassWordActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".SetNewPassWordActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterIdentifyActivity"  android:screenOrientation="portrait"/>
+
+        <receiver
+            android:name=".broadcast.BootCompleteBroadcast"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>            
+                <action android:name="com.maple.beautyjournal.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        
+        
+        <provider
+                android:name=".provider.BeautyProvider"
+                android:authorities="com.maple.beautyjournal"
+                android:exported="false"/>
+        <meta-data
+                android:name="UMENG_APPKEY"
+                android:value="51fa013b56240b1e7805d067" >
+        </meta-data>
+        <meta-data android:value="TEST" android:name="UMENG_CHANNEL"/>
+        <activity android:name="GuideActivity"  android:screenOrientation="portrait" ></activity>
+        <activity android:name="WelcomeActivity"  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>            
+        </activity>
+        <service android:name=".service.PushMessageService"></service>
+        <service android:name=".service.CheckUpdateService"></service>
+        <service android:name=".service.AutoUpdateService"></service>
+        <activity android:name="OrderListActivity"></activity>
+        <activity android:name="OrderDetailActivity"></activity>
+    </application>
+
+</manifest>

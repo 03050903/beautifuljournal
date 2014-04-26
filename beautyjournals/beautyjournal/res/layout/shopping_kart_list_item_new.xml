@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/shopping_kart_item_padding_bottom"
+    android:paddingLeft="@dimen/shopping_kart_item_padding_left"
+    android:paddingRight="@dimen/shopping_kart_item_padding_right"
+    android:paddingTop="@dimen/shopping_kart_item_padding_top" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@string/empty"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_product" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/line1Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/delete_icon"
+            android:singleLine="false"
+            android:text="PRODUCT_NAME"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_below="@id/line1Text"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:text="PRODUCT_PRICE"
+            android:textColor="@android:color/black" />
+
+        <LinearLayout
+            android:id="@+id/bottomline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/price"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RatingBar
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="5dp"
+                android:isIndicator="true"
+                android:progressDrawable="@drawable/star"
+                android:stepSize="1.0" />
+
+            <TextView
+                android:id="@+id/line2Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:text="@string/count_label"
+                android:drawablePadding="5dip"
+                android:textColor="#ff999999" />
+
+            <ImageView
+                android:id="@+id/buy_minus"
+                android:layout_marginLeft="10dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/ui_buy_minus" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_marginLeft="10dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
+
+            <ImageView
+                android:id="@+id/buy_plus"
+                android:layout_marginLeft="10dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/ui_buy_plus" />
+    
+        </LinearLayout>
+        
+        <ImageButton
+            android:id="@+id/delete_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/empty"
+            android:layout_alignParentRight="true"
+            android:layout_above="@id/bottomline"
+            android:padding="10dip"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/button_delete"
+            android:background="@null" />
+        
+    </RelativeLayout>
+</LinearLayout>

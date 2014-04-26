@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/background"
+        android:drawable="@drawable/star_unselect">
+    </item>
+    <item
+        android:id="@+id/secondaryProgress"
+        android:drawable="@drawable/star_unselect">
+    </item>
+    <item
+        android:id="@+id/progress"
+        android:drawable="@drawable/star_select">
+    </item>
+
+</layer-list>

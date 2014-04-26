@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="delivery_mode">
+        <item>@string/all_days</item>
+        <item>@string/holidays_only</item>
+        <item>@string/working_days</item>
+    </array>
+
+    <array name="pay_mode">
+        <item>@string/alipay</item>
+        <item>@string/pay_on_deliver</item>
+    </array>
+
+    <array name="gender">
+        <item>@string/gender_female</item>
+        <item>@string/gender_male</item>
+    </array>
+</resources>

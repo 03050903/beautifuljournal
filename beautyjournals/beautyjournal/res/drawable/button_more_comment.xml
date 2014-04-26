@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/button_more_comment_normal" android:state_enabled="true" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/button_more_comment_normal" android:state_enabled="false" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/button_more_comment_pressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/button_more_comment_normal" android:state_enabled="true"/>
+
+</selector>

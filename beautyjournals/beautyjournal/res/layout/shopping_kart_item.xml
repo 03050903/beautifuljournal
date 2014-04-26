@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/shopping_kart_item_padding_bottom"
+    android:paddingLeft="@dimen/shopping_kart_item_padding_left"
+    android:paddingRight="@dimen/shopping_kart_item_padding_right"
+    android:paddingTop="@dimen/shopping_kart_item_padding_top" >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/brand_normal" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dip"
+        android:src="@drawable/button_delete" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/delete"
+        android:text="PRICE"
+        android:textColor="#ff999999" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dip"
+        android:layout_toLeftOf="@id/price"
+        android:layout_toRightOf="@id/image"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/line1Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="LINE1"
+            android:textColor="#ff999999" />
+
+        <TextView
+            android:id="@+id/line2Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LINE2"
+            android:textColor="#ff999999" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+        >
+
+    <com.maple.beautyjournal.widget.RoundAngleImageView
+            android:id="@+id/image"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="aaaaaaa"
+            android:id="@+id/pager_title"
+            android:textColor="@android:color/white"
+            android:background="#99000000"
+            android:textAppearance="@style/SummaryText"
+            android:visibility="visible"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="left|bottom"
+            android:paddingRight="60dip"
+            android:paddingLeft="6dip"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            />
+
+</FrameLayout>

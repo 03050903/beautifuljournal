@@ -1,0 +1,7 @@
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="72dip"
+    android:layout_height="72dip"
+    android:padding="5dip"
+    android:scaleType="centerCrop" >
+
+</ImageView>

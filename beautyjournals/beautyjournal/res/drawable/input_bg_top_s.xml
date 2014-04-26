@@ -1,0 +1,8 @@
+﻿<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/input_bg_top" android:state_enabled="true" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/input_bg_top" android:state_enabled="false" android:state_window_focused="false"/>
+    <item android:drawable="@drawable/input_bg_top_pressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/input_bg_top" android:state_enabled="true"/>
+
+</selector>

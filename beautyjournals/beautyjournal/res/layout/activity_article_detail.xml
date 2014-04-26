@@ -1,0 +1,171 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.maple.beautyjournal"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_main_bg" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/titlebar_bg"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="60dip"
+                android:layout_height="30dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:onClick="onBack"
+                android:scaleType="center"
+                android:src="@drawable/button_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:text="@string/title_article_detail"
+                style="@style/titleBarText" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fffe4980"
+            android:gravity="center_horizontal"
+            android:padding="10dip"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/expand"
+                android:layout_width="wrap_content"
+                android:clickable="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/expand_bg"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/imageView_arrow"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/empty"
+                    android:src="@drawable/arrowup" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:background="#FFfe4980" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/related_product_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_gravity="bottom"
+            android:background="@color/transparent_half"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dip"
+                android:text="@string/related_pro_title"
+                android:textColor="@android:color/white" />
+
+            <kii.wine.components.gallery.Gallery
+                android:id="@+id/gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="100dip"
+        android:background="@drawable/button_like"
+        android:clickable="true"
+        android:gravity="right|center_vertical"
+        android:paddingRight="5dip"
+        android:textColor="@android:color/white" >
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/favo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="180dip"
+        android:background="@drawable/button_fav" />
+
+    <RelativeLayout
+        android:id="@+id/article_not_found_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/activity_main_bg" >
+
+        <ImageView
+            android:id="@+id/image_crying"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="57dp"
+            android:src="@drawable/crying" />
+
+        <TextView
+            android:id="@+id/textView_notfound_msg1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_crying"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="47dp"
+            android:text="@string/article_not_found_message1"
+            android:textColor="@color/grey_sub"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView_notfound_message2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_notfound_msg1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="@string/article_not_found_message2"
+            android:textColor="@color/grey_sub"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</FrameLayout>

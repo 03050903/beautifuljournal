@@ -1,0 +1,130 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/activity_main_bg"
+                android:orientation="vertical">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/titlebar_bg"
+            android:orientation="horizontal"
+            android:id="@+id/toolbar"
+            android:layout_alignParentTop="true">
+
+        <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="60dip"
+                android:layout_height="30dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:scaleType="center"
+                android:src="@drawable/button_back"/>
+
+        <TextView
+                android:id="@+id/btn_cate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:text="商品"
+                style="@style/titleBarText" />
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/product_cate_tab_bg"
+            android:orientation="horizontal"
+            android:paddingLeft="30dip"
+            android:paddingRight="30dip"
+            android:id="@+id/tab_bar"
+            android:gravity="top"
+            android:layout_below="@id/toolbar">
+
+        <FrameLayout
+                android:id="@+id/tab_hot"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3333"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="人气"
+                    android:textSize="16sp"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/product_cate_tab_selected"
+                    android:visibility="gone"/>
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/tab_price"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3333"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="价格"
+                    android:textSize="16sp"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/product_cate_tab_selected"
+                    android:visibility="gone"/>
+        </FrameLayout>
+
+        <FrameLayout
+                android:id="@+id/tab_sell"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3333"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="销量"
+                    android:textSize="16sp"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/product_cate_tab_selected"
+                    android:visibility="gone"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:scrollbars="none"
+            android:smoothScrollbar="true"
+            ptr:ptrMode="pullFromEnd"
+            android:layout_below="@id/tab_bar"/>
+
+</RelativeLayout>

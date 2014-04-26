@@ -1,0 +1,73 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="spinner_style">
+        <item name="android:background">@drawable/field</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="AlertDialog" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/popup_bg</item>
+    </style>
+    <style name="SummaryText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#ff666666</item>
+    </style>
+
+    <style name="titleBarText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/default_pink_color</item>
+        <!--<item name="android:textStyle">bold</item>-->
+    </style>
+
+    <style name="default_button" parent="@android:style/Widget.Button">        
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/btn_common_bg</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">38dip</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="default_small_button" parent="@android:style/Widget.Button">        
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/btn_common_bg</item>
+        <item name="android:layout_width">96dip</item>
+        <item name="android:layout_height">38dip</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    <style name="detail_article_2_radio">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingTop">8dip</item>
+        <item name="android:paddingBottom">4dip</item>
+        <item name="android:background">@drawable/detail_article_2_select</item>
+        <item name="android:button">@null</item>
+    </style>
+</resources>

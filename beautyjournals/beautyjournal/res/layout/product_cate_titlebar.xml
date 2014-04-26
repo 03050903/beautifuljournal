@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <ImageButton
+        android:id="@+id/tab_cate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pro_cate_cate_normal" >
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/tab_function"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pro_cate_function_normal" >
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/tab_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pro_cate_brand_normal" >
+    </ImageButton>
+
+</LinearLayout>

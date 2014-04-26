@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/common_bg"
+                android:id="@+id/content">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/titlebar_bg"
+            android:layout_alignParentTop="true"
+            android:id="@+id/toolbar">
+
+        <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="60dip"
+                android:layout_height="30dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/empty"
+                android:clickable="true"
+                android:scaleType="center"
+                android:src="@drawable/button_back"/>
+
+        <TextView
+                android:id="@+id/btn_cate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:text="@string/order"
+                style="@style/titleBarText"/>
+    </RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:layout_below="@id/toolbar"
+        android:fastScrollEnabled="true"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:divider="@color/transparent"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:scrollbars="none"
+        android:smoothScrollbar="true"
+        ptr:ptrMode="manualOnly" />
+
+    <com.maple.beautyjournal.widget.ProgressAnimateView
+        android:id="@+id/progressAnimateView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+</RelativeLayout>
