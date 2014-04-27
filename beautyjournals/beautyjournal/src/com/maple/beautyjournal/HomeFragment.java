@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,8 +51,9 @@ public class HomeFragment extends Fragment {
     private Context context;
     private ImageView btn_beauty,btn_skin,btn_perfume,btn_news;
     private GridView hotWordsGridView;
-    private ArrayList<HashMap<String, Object>> localhotWords=new ArrayList<HashMap<String, Object>>();
-    private ArrayList<HashMap<String, Object>> remotehotWords=new ArrayList<HashMap<String, Object>>();
+    private ArrayList<String> localhotWords=new ArrayList<String>();
+    private ArrayList<String> remotehotWords=new ArrayList<String>();
+    private HotWordsAdapter hotWordsAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -68,7 +71,6 @@ public class HomeFragment extends Fragment {
     private void initHotWords(View view){
         hotWordsGridView=(GridView)view.findViewById(R.id.hotWords_grview);
         String cache = SettingsUtil.getHotWordsCache(context);
-        Log.d("XXX","-----"+cache);
         localhotWords.clear();
         if (!TextUtils.isEmpty(cache)) {
             try {
@@ -76,18 +78,49 @@ public class HomeFragment extends Fragment {
                 JSONArray array = new JSONArray(cache);
                 Log.d("XXX","after");
                 for (int i = 0; i < array.length(); i++) {
-                    HashMap<String,Object> hot=new HashMap<String, Object>();
-                    hot.put("hot_words_item",array.get(i).toString());
-                    localhotWords.add(hot);
+                    localhotWords.add(array.get(i).toString());
                 }
             } catch (Exception e) {
                 Log.d("XXX","dsfsdfdsfds");
             }
         }
         Log.d("XXX","-------local"+localhotWords.toString());
-        //SimpleAdapter hotWordsAdapter=new SimpleAdapter(this,localhotWords,
-        //  R.layout.activity_home_2_hotwords,new String[]{"hot_words_item"},new int[] {R.id.hot_words_item});
-        // hotWordsGridView.setAdapter(hotWordsAdapter);
+        hotWordsAdapter=new HotWordsAdapter(context,localhotWords);
+        hotWordsGridView.setAdapter(hotWordsAdapter);
+    }
+    private class HotWordsAdapter extends BaseAdapter{
+
+        private List<String> hotWords=new ArrayList<String>();
+        private LayoutInflater inflater;
+        public HotWordsAdapter(Context context,List<String> hotWords){
+            inflater= LayoutInflater.from(context);
+            this.hotWords=hotWords;
+        }
+        @Override
+        public int getCount() {
+            return hotWords.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return hotWords.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TextView hot=null;
+            if(convertView==null){
+                convertView= inflater.inflate(R.layout.activity_home_2_hotwords, parent, false);
+                hot=(TextView)convertView.findViewById(R.id.hot_words_item);
+                hot.setText(hotWords.get(position));
+            }
+           return convertView;
+        }
     }
     private void initCategoryBtn(View view){
 
@@ -223,10 +256,9 @@ public class HomeFragment extends Fragment {
                     Log.d("XXX",array.toString());
                     SettingsUtil.saveHotWordsCache(context, array.toString());   //保存在缓存中
                     for (int i = 0; i < array.length(); i++) {
-                        HashMap<String,Object> hot=new HashMap<String, Object>();
-                        hot.put("hot_words_item",array.get(i).toString());
-                        remotehotWords.add(hot);
+                        remotehotWords.add(array.get(i).toString());
                     }
+                    hotWordsAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
