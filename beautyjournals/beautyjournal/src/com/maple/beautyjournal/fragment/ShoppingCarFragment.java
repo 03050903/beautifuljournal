@@ -138,8 +138,8 @@ public class ShoppingCarFragment extends BaseFragment {
 
     private void gotoProductPage() {
         if (getActivity() instanceof MainActivity) {
-            MainActivity activity = (MainActivity) getActivity();
-            activity.setTab(0);
+            //MainActivity activity = (MainActivity) getActivity();
+            //activity.setTab(0);
         }
         //NOTE(shuyinghuang) something is wrong here
         if(getActivity() == null){

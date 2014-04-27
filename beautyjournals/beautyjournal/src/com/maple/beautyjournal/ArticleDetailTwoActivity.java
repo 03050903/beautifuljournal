@@ -2,9 +2,7 @@ package com.maple.beautyjournal;
 
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -13,8 +11,6 @@ import com.maple.beautyjournal.fragment.ArticleListFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
-import android.widget.TabWidget;
-import android.widget.Toast;
 
 /**
  * Created by mosl on 14-4-11.
@@ -98,7 +94,7 @@ public class ArticleDetailTwoActivity extends SherlockFragmentActivity{
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         super.onKeyDown(keyCode, event);
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent().setClass(ArticleDetailTwoActivity.this,HomeActivity.class));
+            startActivity(new Intent().setClass(ArticleDetailTwoActivity.this,HomeFragment.class));
             return false;
         }
         return false;
