@@ -93,9 +93,9 @@ public class HomeActivity extends BaseFragmentActivity {
             }
         }
         Log.d("XXX","-------local"+localhotWords.toString());
-        SimpleAdapter hotWordsAdapter=new SimpleAdapter(this,localhotWords,
-                R.layout.activity_home_2_hotwords,new String[]{"hot_words_item"},new int[] {R.id.hot_words_item});
-        hotWordsGridView.setAdapter(hotWordsAdapter);
+        //SimpleAdapter hotWordsAdapter=new SimpleAdapter(this,localhotWords,
+              //  R.layout.activity_home_2_hotwords,new String[]{"hot_words_item"},new int[] {R.id.hot_words_item});
+       // hotWordsGridView.setAdapter(hotWordsAdapter);
     }
     private void initCategoryBtn(){
 
