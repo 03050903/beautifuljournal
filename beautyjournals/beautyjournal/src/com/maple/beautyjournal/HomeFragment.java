@@ -56,17 +56,17 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState){
         context=getActivity();
         View view = inflater.inflate(R.layout.activity_home_content,container,false);
-//        initAds();
-//        initHotWords(view);
-//        initAdGallery(view);
-//        initCategoryBtn(view);
-//        new GetDataTask().execute();    //启动异步任务
-//        new GetHotWordsTask().execute();
+        initAds();
+        initHotWords(view);
+        initAdGallery(view);
+        initCategoryBtn(view);
+        new GetDataTask().execute();    //启动异步任务
+        new GetHotWordsTask().execute();
         return view;
     }
 
     private void initHotWords(View view){
-        hotWordsGridView=(GridView)view.findViewById(R.id.gallery);
+        hotWordsGridView=(GridView)view.findViewById(R.id.hotWords_grview);
         String cache = SettingsUtil.getHotWordsCache(context);
         Log.d("XXX","-----"+cache);
         localhotWords.clear();

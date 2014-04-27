@@ -56,11 +56,11 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_home_2);
         fragmentManager=getSupportFragmentManager();
-         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         HomeFragment homeFragment=new HomeFragment();
-        transaction.add(R.id.content,homeFragment);
-        transaction.show(homeFragment);
+        transaction.replace(R.id.content,homeFragment);
+        transaction.commit();
     }
 //
 //    TabHost mTabHost;
