@@ -79,8 +79,7 @@
                 <action android:name="com.maple.beautyjournal.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        
-        
+
         <provider
                 android:name=".provider.BeautyProvider"
                 android:authorities="com.maple.beautyjournal"
@@ -108,6 +107,7 @@
         <activity android:name=".ArticleDetailTwoActivity" >
 
         </activity>
+        <activity android:name=".SearchActivity" />
 
     </application>
 

@@ -24,6 +24,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/search_find"/>
             <EditText
+                android:id="@+id/search_edit"
                 android:layout_width="220dp"
                 android:layout_height="match_parent" />
             <ImageView
