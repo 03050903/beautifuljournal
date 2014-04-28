@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +31,7 @@ import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.ArticleDetailActivity;
+import com.maple.beautyjournal.MainActivity;
 import com.maple.beautyjournal.R;
 import com.maple.beautyjournal.adapter.ArticlePagerAdapter;
 import com.maple.beautyjournal.base.BaseFragment;
@@ -61,6 +63,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     TextView mCateSwitcher;
     String key;
     TextView pageCount;
+
 
     /*
         做一些初始化的工作，初始化成员变量
@@ -124,7 +127,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
             @Override
             public void onClick(View arg0) {
 
-                ArticleListFragment.this.getActivity().onBackPressed();
+                startActivity(new Intent().setClass(getActivity(), MainActivity.class));
             }
 
         });
