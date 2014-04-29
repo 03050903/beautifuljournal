@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="20dp">
+    <TextView
+        android:id="@+id/search_tittle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="浪漫蓝色眼妆复古魅力女人味"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/search_theme"
+        android:layout_below="@+id/search_tittle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#cccccc"
+        android:text="整体妆容"/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/search_theme"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"/>
+</RelativeLayout>

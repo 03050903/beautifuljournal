@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -50,12 +51,14 @@ import java.util.Iterator;
 public class MainActivity extends BaseFragmentActivity {
 
     private FragmentManager fragmentManager;
+    private ImageView searchBar;
 
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_home_2);
         initData();// 将数据库复制
+        initCompoment();
         fragmentManager=getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
@@ -65,6 +68,20 @@ public class MainActivity extends BaseFragmentActivity {
 
         Intent intent = new Intent(BootCompleteBroadcast.ACTION_APPBOOTCOMPLETED);
         sendBroadcast(intent);  //发送广播
+    }
+
+    private void initCompoment(){
+
+        searchBar=(ImageView)findViewById(R.id.search);
+        searchBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent search=new Intent();
+                search.setClass(MainActivity.this,SearchActivity.class);
+                startActivity(search);
+                return false;
+            }
+        });
     }
 
 
