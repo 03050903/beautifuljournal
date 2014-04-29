@@ -55,6 +55,7 @@ public class HttpClientImplUtil extends HttpClientUtil {
                 sb = sb.deleteCharAt(sb.length() - 1);
             }
             String str = sb.toString();
+            Log.d("XXX","-------"+str);
             Log.e("request url", str);
             HttpResponse response = getClient(str);
             if (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
