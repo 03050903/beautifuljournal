@@ -56,7 +56,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     TextView pageCount;
     private RadioGroup radioGroup;
     private int currentIndicatorLeft = 0;
-    
+
     private FragmentPagerAdapter mAdapter;
     // 页卡内容
     private ViewPager mPager;

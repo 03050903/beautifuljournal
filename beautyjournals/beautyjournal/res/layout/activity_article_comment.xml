@@ -7,48 +7,59 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dip"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="#ff81a9">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <ImageView
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dip"
                     android:id="@+id/back_comment"
                     android:layout_width="30dip"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:src="@drawable/left_arrow_2"/>
                 <TextView
+                    android:layout_centerInParent="true"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="80dip"
-                    android:layout_width="110dip"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="文章评论"
                     android:textSize="25dip"
                     android:textColor="#ffffff"/>
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="50dip"
                     android:layout_width="40dip"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/article_reflesh"/>
+                </RelativeLayout>
             </LinearLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="34dip"
-                android:background="#f7f7f7"
-                android:gravity="center_vertical">
-                <EditText
-                    android:layout_marginLeft="10dip"
-                    android:hint="写评论"
-                    android:layout_width="300dip"
-                    android:layout_height="36dip" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="#F0F0F0"
+                >
                 <LinearLayout
+                    style="@style/InputCommentBorder"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pen_commit"/>
+                    <EditText
+                        android:hint="写评论"
+                        style="@style/ArticleCommentEditText" />
+                </LinearLayout>
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_weight="1"
                     android:layout_marginTop="80dip"
                     android:layout_width="match_parent"
-                    android:layout_height="100dip"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:visibility="gone">
                     <TextView
@@ -67,11 +78,10 @@
 
                 </LinearLayout>
                 <ListView
+                        android:layout_weight="1"
                         android:id="@+id/list_article_comment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         >
                 </ListView>
-
-            </LinearLayout>
 </LinearLayout>

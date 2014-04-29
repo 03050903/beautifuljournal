@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -74,9 +75,7 @@ public class HomeFragment extends Fragment {
         localhotWords.clear();
         if (!TextUtils.isEmpty(cache)) {
             try {
-                Log.d("XXX","new JSONArray(cache)");
                 JSONArray array = new JSONArray(cache);
-                Log.d("XXX","after");
                 for (int i = 0; i < array.length(); i++) {
                     localhotWords.add(array.get(i).toString());
                 }
@@ -87,6 +86,18 @@ public class HomeFragment extends Fragment {
         Log.d("XXX","-------local"+localhotWords.toString());
         hotWordsAdapter=new HotWordsAdapter(context,localhotWords);
         hotWordsGridView.setAdapter(hotWordsAdapter);
+        hotWordsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView=(TextView)view.findViewById(R.id.hot_words_item);
+                String itemStr=textView.getText().toString();
+                Bundle bundle=new Bundle();
+                bundle.putString("search",itemStr);
+                Intent search=new Intent();
+                search.putExtra("key",bundle);
+                startActivity(search.setClass(getActivity(),SearchActivity.class));
+            }
+        });
     }
     private class HotWordsAdapter extends BaseAdapter{
 
@@ -195,10 +206,10 @@ public class HomeFragment extends Fragment {
                     Recommend recommend = Recommend.fromJson(array.getJSONObject(i));
                     Log.d(TAG, "local cache: " + recommend.pic);
                     mLocalCacheRecommend.add(recommend);
+                    Log.d("XXX",recommend.title);
                 }
                 return;
             } catch (Exception e) {
-                //fallback to below section;
             }
         }
     }
@@ -226,11 +237,12 @@ public class HomeFragment extends Fragment {
                     recommends.clear();
                     JSONArray array = obj.getJSONArray("info");
                     SettingsUtil.saveAdCache(context, array.toString());   //保存在缓存中
+                    Log.d("XXX",array.toString());
                     for (int i = 0; i < array.length(); i++) {
                         Recommend item = Recommend.fromJson(array.getJSONObject(i));
-                        Log.d(TAG, "add recommend: " + item.pic + ", " + item.title);
                         recommends.add(item);
                     }
+                    mAdAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -258,7 +270,6 @@ public class HomeFragment extends Fragment {
                     for (int i = 0; i < array.length(); i++) {
                         remotehotWords.add(array.get(i).toString());
                     }
-                    hotWordsAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -313,6 +324,7 @@ public class HomeFragment extends Fragment {
             if (item != null) {
                 ImageLoader.getInstance().displayImage(item.pic, v);
                 tv.setText(item.title);
+                Log.d("XXX",item.title);
             } else {
                 v.setImageDrawable(getAdDrawable(position));
                 tv.setText("");

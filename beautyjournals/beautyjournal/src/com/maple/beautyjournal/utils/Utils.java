@@ -39,7 +39,7 @@ import java.io.FileOutputStream;
 public class Utils {
     private Utils() {}
 
-    ;
+
 
     @TargetApi(11)
     public static void enableStrictMode() {

@@ -7,7 +7,6 @@
 package com.alipay.android.app.lib;
 
 public final class Base64 {
-
 	static private final int BASELENGTH = 128;
 	static private final int LOOKUPLENGTH = 64;
 	static private final int TWENTYFOURBITGROUP = 24;
