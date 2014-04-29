@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/product_image_search"
+        android:src="@drawable/search_product_holder"/>
+    <RelativeLayout
+        android:layout_toRightOf="@+id/product_image_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp">
+        <TextView
+            android:id="@+id/tittle_product"
+            android:layout_alignParentLeft="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="阿芙插精油"/>
+        <ImageView
+            android:id="@+id/starstar"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tittle_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star_2"/>
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/starstar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$ 139"/>
+        <TextView
+            android:id="@+id/product_comments"
+            android:layout_below="@+id/starstar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="25条点评"/>
+        </RelativeLayout>
+    <TextView
+        android:layout_below="@+id/product_image_search"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"/>
+</RelativeLayout>

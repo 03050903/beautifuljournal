@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
                     localhotWords.add(array.get(i).toString());
                 }
             } catch (Exception e) {
-                Log.d("XXX","dsfsdfdsfds");
+
             }
         }
         Log.d("XXX","-------local"+localhotWords.toString());

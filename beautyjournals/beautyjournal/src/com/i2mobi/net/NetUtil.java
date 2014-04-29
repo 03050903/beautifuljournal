@@ -417,4 +417,10 @@ public abstract class NetUtil implements URLConstant, HttpConstant {
     public static String getFeedbackUrl() {
         return FEEDBACK_URL;
     }
+
+    //获得搜索的url
+    public static String getSearchUrl(Context context){
+        //String appId = getAppID(context);
+        return ARTICLE_SEARCH_URL;
+    }
 }
