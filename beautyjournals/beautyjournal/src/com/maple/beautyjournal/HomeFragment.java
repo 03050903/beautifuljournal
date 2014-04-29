@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -85,6 +86,18 @@ public class HomeFragment extends Fragment {
         Log.d("XXX","-------local"+localhotWords.toString());
         hotWordsAdapter=new HotWordsAdapter(context,localhotWords);
         hotWordsGridView.setAdapter(hotWordsAdapter);
+        hotWordsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView=(TextView)view.findViewById(R.id.hot_words_item);
+                String itemStr=textView.getText().toString();
+                Bundle bundle=new Bundle();
+                bundle.putString("search",itemStr);
+                Intent search=new Intent();
+                search.putExtra("key",bundle);
+                startActivity(search.setClass(getActivity(),SearchActivity.class));
+            }
+        });
     }
     private class HotWordsAdapter extends BaseAdapter{
 
@@ -227,9 +240,7 @@ public class HomeFragment extends Fragment {
                     Log.d("XXX",array.toString());
                     for (int i = 0; i < array.length(); i++) {
                         Recommend item = Recommend.fromJson(array.getJSONObject(i));
-                        Log.d(TAG, "add recommend: " + item.pic + ", " + item.title);
                         recommends.add(item);
-                        Log.d("XXX","从服务器下来的---"+item.title);
                     }
                     mAdAdapter.notifyDataSetChanged();
                 }
