@@ -1,6 +1,7 @@
 <resources>
 
     <color name="activity_main_bg">#ffffff</color>
+	<color name="title_bar_bg">#ff81a9</color>
     <color name="activity_login_font">#ff000000</color>
     <color name="default_pink_color">#ffe92e67</color>
     <color name="sina_normal">#bc0000</color>
