@@ -137,6 +137,7 @@ public class SearchActivity extends BaseActivity {
                 searchDataAdapter.notifyDataSetChanged();
             }
             new GetSearchTittle().execute(s.toString());
+            Log.d("XXX","开始搜索"+s.toString());
 //            if( Tag_choose.equals("article")) {
 //                searchArticleInfos.clear();
 //                if (s.toString().equals(""))
@@ -159,9 +160,10 @@ public class SearchActivity extends BaseActivity {
             String url = NetUtil.getSearchUrl(context);
             Map<String,String> map=new HashMap<String,String>();
             if(Tag_choose.equals("article")){
+                Log.d("XXX","搜索文章");
                 map.put("keyword",params[0]);
                 map.put("type","ARTICLE");
-                map.put("/$size","8");
+                //map.put("/$size","8");
                 NetUtil util = new HttpClientImplUtil(context,map,url);
                 String result = util.doGet();
                 try {
@@ -174,6 +176,7 @@ public class SearchActivity extends BaseActivity {
                             SearchArticleInfo searchArticleInfo=SearchArticleInfo.fromJson(obj_article);
                             searchArticleInfos.add(searchArticleInfo);
                         }
+                        Log.d("XXX","结束了搜索文章");
                         Log.d("XXX",Integer.toString(searchArticleInfos.size()));
                     }
                 } catch (Exception e) {
