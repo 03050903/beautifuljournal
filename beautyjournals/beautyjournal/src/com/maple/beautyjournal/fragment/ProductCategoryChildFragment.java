@@ -95,7 +95,7 @@ public class ProductCategoryChildFragment extends BaseFragment {
                 Bundle b = new Bundle();
                 b.putString(ProductListFragment.LIST_BY_CATEGORY, sub.subId);
                 product_cate_child.setArguments(b);
-                ft.replace(R.id.realtabcontent, product_cate_child);
+                ft.replace(R.id.content, product_cate_child);
                 ft.addToBackStack(null);
                 ft.commit();
                 ProductCategoryChildFragment.this.getActivity().getSupportFragmentManager()

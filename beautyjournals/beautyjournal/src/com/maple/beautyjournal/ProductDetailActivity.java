@@ -56,7 +56,6 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
     private int commentCount;
     private String[] images;
     private Context context;
-
     private Gallery gallery;
     private PageControl pageControl;
     private ProductImageAdapter adapter;

@@ -134,19 +134,17 @@ public class SearchActivity extends BaseActivity {
             if(s.equals("")){
                 searchProductInfos.clear();
                 searchArticleInfos.clear();
+                Log.d("XXX","s等于空，清除所有");
                 searchDataAdapter.notifyDataSetChanged();
             }
-            new GetSearchTittle().execute(s.toString());
-            Log.d("XXX","开始搜索"+s.toString());
-//            if( Tag_choose.equals("article")) {
-//                searchArticleInfos.clear();
-//                if (s.toString().equals(""))
-//                    articleSearchAdapter.notifyDataSetChanged();
-//                if (!s.toString().equals(""))
-//                    new GetSearchTittle().execute(s.toString());
-//            }else if(Tag_choose.equals("product")){
-//
-//            }
+            if(!s.equals("")){
+                searchProductInfos.clear();
+                searchArticleInfos.clear();
+                searchDataAdapter.notifyDataSetChanged();
+                new GetSearchTittle().execute(s.toString());
+                Log.d("XXX","开始搜索"+s.toString());
+            }
+
         }
 
     }
@@ -185,9 +183,11 @@ public class SearchActivity extends BaseActivity {
             }else{
                 map.put("keyword",params[0]);
                 map.put("type","PRODUCT");
-                map.put("/$size","8");
+               // map.put("/$size","8");
+                Log.d("XXX","开始搜索商品");
                 NetUtil util = new HttpClientImplUtil(context,map,url);
                 String result = util.doGet();
+                Log.d("XXX","返回来得商品搜索结果:"+result);
                 try {
                     JSONObject obj = new JSONObject(result);
                     if (ServerDataUtils.isTaskSuccess(obj)) {
@@ -196,6 +196,14 @@ public class SearchActivity extends BaseActivity {
                         for(int i=0;i<array.length();i++){
                             JSONObject obj_product=array.getJSONObject(i);
                             SearchProductInfo searchProductInfo=SearchProductInfo.fromJson(obj_product);
+                            Log.d("XXX",Integer.toString(searchArticleInfos.size()));
+                            Log.d("XXX",searchProductInfo.item_id);
+                            Log.d("XXX",searchProductInfo.item_name);
+                            Log.d("XXX",searchProductInfo.item_price);
+                            Log.d("XXX",searchProductInfo.item_functions);
+                            Log.d("XXX",searchProductInfo.item_brand);
+                            Log.d("XXX",searchProductInfo.item_des);
+                            Log.d("XXX",searchProductInfo.item_image);
                             searchProductInfos.add(searchProductInfo);
                         }
                     }
@@ -261,84 +269,14 @@ public class SearchActivity extends BaseActivity {
                     ImageView productStar=(ImageView)convertView.findViewById(R.id.starstar);
                     TextView productPrice=(TextView)convertView.findViewById(R.id.product_price);
                     TextView productComments=(TextView)convertView.findViewById(R.id.product_comments);
+
+                    productTittle.setText(searchProductInfos.get(position).item_name);
+                    productPrice.setText(searchProductInfos.get(position).item_price);
+
                 }
                 return convertView;
             }
         }
     }
-    /*
-    private class ProductSearchAdapter extends BaseAdapter{
-        private Context context;
 
-        public ProductSearchAdapter(Context ctext){
-            this.context=context;
-        }
-        @Override
-        public int getCount() {
-            return searchProductInfos.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return position;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            convertView = LayoutInflater.from(context).inflate(R.layout.search_product_listview_item, null);
-            if(searchArticleInfos.size()>0) {
-                ImageView productImage=(ImageView)convertView.findViewById(R.id.product_image_search);
-                TextView productTittle=(TextView)convertView.findViewById(R.id.tittle_product);
-                ImageView productStar=(ImageView)convertView.findViewById(R.id.starstar);
-                TextView productPrice=(TextView)convertView.findViewById(R.id.product_price);
-                TextView productComments=(TextView)convertView.findViewById(R.id.product_comments);
-            }
-            return convertView;
-        }
-    }
-    private class ArticleSearchAdapter extends BaseAdapter{
-        private Context context;
-        public ArticleSearchAdapter(Context context){
-            this.context=context;
-        }
-        @Override
-        public int getCount() {
-            Log.d("XXX",Integer.toString(searchArticleInfos.size()));
-            return searchArticleInfos.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return searchArticleInfos.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            convertView = LayoutInflater.from(context).inflate(R.layout.choose_listview_item, null);
-            if(searchArticleInfos.size()>0) {
-                TextView tittle = (TextView) convertView.findViewById(R.id.search_tittle);
-                tittle.setText(searchArticleInfos.get(position).item_tittle);
-                TextView theme = (TextView) convertView.findViewById(R.id.search_theme);
-                theme.setText(searchArticleInfos.get(position).item_category);
-                Log.d("XXX", Integer.toString(position));
-                Log.d("XXX", searchArticleInfos.get(position).item_tittle);
-            }
-            return convertView;
-        }
-
-    }
-
-    */
 }

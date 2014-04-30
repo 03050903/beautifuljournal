@@ -39,7 +39,7 @@
         android:paddingRight="30dip" >
 
         <FrameLayout
-            android:id="@+id/tab_cate"
+            android:id="@+id/tab_cate_category"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.3333"
@@ -85,7 +85,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/tab_brand"
+            android:id="@+id/tab_brand_category"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.3333"
