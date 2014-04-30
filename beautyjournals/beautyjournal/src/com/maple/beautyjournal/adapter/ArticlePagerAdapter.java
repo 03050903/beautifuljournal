@@ -1,13 +1,5 @@
 package com.maple.beautyjournal.adapter;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.text.format.DateFormat;
@@ -16,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
+import android.widget.ListView;
 import com.maple.beautyjournal.R;
 import com.maple.beautyjournal.entitiy.Article;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.*;
 
 public class ArticlePagerAdapter extends PagerAdapter {
 	
@@ -98,9 +88,15 @@ public class ArticlePagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         LayoutInflater inflater = LayoutInflater.from(this.mContext);
         int id = (position % 2 == 0) ? R.layout.article_list_item1 : R.layout.article_list_item2;
+        id = R.layout.article_list ;
         View pager = inflater.inflate(id, container, false);
         List<Article> articleList = mArticles.get(position);
         int imageCount = 0;
+        ListView listView =(ListView)pager.findViewById(R.id.lv_article_list) ;
+        ArticleListAdapter articleListAdapter = new ArticleListAdapter(this.mContext , articleList) ;
+        listView.setAdapter(articleListAdapter);
+
+        /*
         Set<Integer> usedLayout = new HashSet<Integer>();
         for (int i = 0; i < articleList.size(); i++) {
             Article article = articleList.get(i);
@@ -156,6 +152,7 @@ public class ArticlePagerAdapter extends PagerAdapter {
                 pager.findViewById(i).setVisibility(View.INVISIBLE);
             }
         }
+        */
         container.addView(pager);
         return pager;
     }
