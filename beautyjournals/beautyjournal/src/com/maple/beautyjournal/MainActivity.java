@@ -59,6 +59,7 @@ public class MainActivity extends BaseFragmentActivity {
     private ImageView home_page;
     private ImageView shoping_city;
     private ImageView person_center;
+    private ImageView shoping_car;
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -104,6 +105,14 @@ public class MainActivity extends BaseFragmentActivity {
         home_page=(ImageView)findViewById(R.id.home_page);
         shoping_city=(ImageView)findViewById(R.id.shoping_city);
         person_center=(ImageView)findViewById(R.id.person_center);
+        shoping_car=(ImageView)findViewById(R.id.shopingcar);
+        shoping_car.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                startActivity(new Intent(MainActivity.this,ShopingCarActivity.class));
+                return false;
+            }
+        });
         shoping_city.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

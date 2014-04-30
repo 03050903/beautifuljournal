@@ -35,7 +35,7 @@ public class TestActivity extends Activity {
         public void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_search);
+            setContentView(R.layout.activity_article_comment);
         }
 
 //
