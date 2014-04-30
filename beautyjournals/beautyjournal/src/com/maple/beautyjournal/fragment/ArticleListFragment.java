@@ -43,9 +43,10 @@ import java.util.List;
 public class ArticleListFragment extends BaseFragment implements OnPageChangeListener {
 
    // private ArrayList<MenuItem> menu = new ArrayList<MenuItem>();  //底下菜单
+    private int TAB_SIZE = 5 ;
     private int mMenuItemHeight;
     private int page = 1;
-    private int category = 101;         //类别
+    private int category[] = {101 , 102 , 103 , 104 , 105};         //类别
    // private Map<String, MenuItem> sCategoryMap = new HashMap<String, MenuItem>();
     private List<List<Article>> articles = new ArrayList<List<Article>>();
     private ViewPager viewPager;
@@ -134,7 +135,32 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, int i) {
-            if (radioGroup.getChildAt(i) != null){
+            int item_no = -1 ;
+            switch (i){
+                case R.id.radio_btn_switcher_item_1:{
+                    item_no = 0 ;
+                    break;
+                }
+                case R.id.radio_btn_switcher_item_2:{
+                    item_no = 1 ;
+                    break;
+                }
+                case R.id.radio_btn_switcher_item_3:{
+                    item_no = 2 ;
+                    break;
+                }
+                case R.id.radio_btn_switcher_item_4:{
+                    item_no = 3 ;
+                    break;
+                }
+                case R.id.radio_btn_switcher_item_5:{
+                    item_no = 4 ;
+                    break;
+                }
+                default:
+
+            }
+            if (radioGroup.getChildAt(item_no) != null){
                 /*
                 TranslateAnimation animation = new TranslateAnimation(
                         currentIndicatorLeft , ((RadioButton)radioGroup.getChildAt(i)).getLeft() ,0 , 0);
@@ -147,7 +173,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
                 syncHorizontalScrollView.smoothScrollTo(
                         (i > 1 ? ((RadioButton) radioGroup.getChildAt(i)).getLeft() : 0) - ((RadioButton) radioGroup.getChildAt(2)).getLeft(), 0);
                 */
-                viewPager.setCurrentItem(i);
+                viewPager.setCurrentItem(item_no);
             }
         }
     };
@@ -281,43 +307,55 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         protected Void doInBackground(Void... params) {
             Context context = ArticleListFragment.this.getActivity();
             int size = DEFAULT_SIZE1;
-            String url = NetUtil.getArticleListUrl2(context, category, page, size);
-            Log.d(TAG, "doInBackground, url is " + url);
-            NetUtil util = new HttpClientImplUtil(context, url);
-            String result = util.doGet();
-            Log.d(TAG, "result is " + result);
-            try {
-                JSONObject json = new JSONObject(result);
-                if (ServerDataUtils.isTaskSuccess(json)) {
-                    articles.clear();
-                    JSONArray array = json.getJSONArray("info");
-                    Log.d(TAG, "get " + array.length() + " items");
-                    for (int i = 0; i < array.length(); i++) {
-                        ArrayList<Article> articleList = new ArrayList<Article>();
-                        JSONArray articleArray = array.getJSONArray(i);
-                        for (int j = 0; j < articleArray.length(); j++) {
-                            JSONObject obj = articleArray.getJSONObject(j);
-                            Article article = ServerDataUtils.getArticleFromJSONObject(obj);
-                            if(article == null || article.id == null){
-                            	continue;
-                            }
-                            if (!TextUtils.isEmpty(article.pic)) {
-                                article.pic = URLConstant.SERVER_ADDRESS + article.pic;
-                            }
-                            Log.d(TAG, "get article : " + article.title);
-                            articleList.add(article);
+
+            for (int k = 0 ; k < TAB_SIZE ; k++){
+                String url = NetUtil.getArticleListUrl2(context, category[k], page, size);
+                Log.d(TAG, "doInBackground, url is " + url);
+                NetUtil util = new HttpClientImplUtil(context, url);
+                String result = util.doGet();
+                Log.d(TAG, "result is " + result);
+
+                try {
+                    JSONObject json = new JSONObject(result);
+                    if (ServerDataUtils.isTaskSuccess(json)) {
+                        if (k == 0) {
+                            articles.clear();
                         }
-                        Log.d(TAG, "get a line of article: " + articleList.size());
+                        JSONArray array = json.getJSONArray("info");
+                        Log.d(TAG, "get " + array.length() + " items");
+                        ArrayList<Article> articleList = new ArrayList<Article>();
+                        for (int i = 0; i < array.length(); i++) {
+                            //ArrayList<Article> articleList = new ArrayList<Article>();
+                            JSONArray articleArray = array.getJSONArray(i);
+                            for (int j = 0; j < articleArray.length(); j++) {
+                                JSONObject obj = articleArray.getJSONObject(j);
+                                Article article = ServerDataUtils.getArticleFromJSONObject(obj);
+                                if(article == null || article.id == null){
+                                    continue;
+                                }
+                                if (!TextUtils.isEmpty(article.pic)) {
+                                    article.pic = URLConstant.SERVER_ADDRESS + article.pic;
+                                }
+                                Log.d(TAG, "get article : " + article.title);
+                                articleList.add(article);
+                            }
+                            Log.d(TAG, "get a line of article: " + articleList.size());
+
+                            //articles.add(articleList) ;
+                            //adapter.setArticles(articles);
+                        }
                         articles.add(articleList);
-                        adapter.setArticles(articles);
+
+                    } else {
+                        errorMsg = ServerDataUtils.getErrorMessage(json);
                     }
-                } else {
-                    errorMsg = ServerDataUtils.getErrorMessage(json);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorMsg = e.getLocalizedMessage();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                errorMsg = e.getLocalizedMessage();
+
             }
+            adapter.setArticles(articles);
             return null;
         }
 

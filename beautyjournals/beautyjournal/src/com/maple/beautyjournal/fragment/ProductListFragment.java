@@ -100,10 +100,10 @@ public class ProductListFragment extends BaseFragment implements OnClickListener
             }
 
         });
-        initTab(v);
-        initList(v);
-        initQueryParameter();
-        setTab(TAB_HOT);
+         initTab(v);
+         initList(v);
+         initQueryParameter();
+         setTab(TAB_HOT);
         return v;
     }
 

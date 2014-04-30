@@ -89,11 +89,11 @@ public class ProductCategoryFragment extends BaseFragment implements OnClickList
     }
 
     private void initTab(View parent) {
-        tab_cate = (FrameLayout) parent.findViewById(R.id.tab_cate);
+        tab_cate = (FrameLayout) parent.findViewById(R.id.tab_cate_category);
         tab_cate.setOnClickListener(this);
         tab_fun = (FrameLayout) parent.findViewById(R.id.tab_fun);
         tab_fun.setOnClickListener(this);
-        tab_brand = (FrameLayout) parent.findViewById(R.id.tab_brand);
+        tab_brand = (FrameLayout) parent.findViewById(R.id.tab_brand_category);
         tab_brand.setOnClickListener(this);
         queryHandler = new QueryHandler();
     }
@@ -139,7 +139,7 @@ public class ProductCategoryFragment extends BaseFragment implements OnClickList
                 Bundle bundle = new Bundle();
                 bundle.putString(ProductCategoryChildFragment.LIST_BY_CATEGORY, category.id);
                 product_cate_child.setArguments(bundle);
-                ft.replace(R.id.realtabcontent, product_cate_child);
+                ft.replace(R.id.content, product_cate_child);
                 ft.addToBackStack(null);
                 ft.commit();
                 context.getSupportFragmentManager().executePendingTransactions();
@@ -171,7 +171,7 @@ public class ProductCategoryFragment extends BaseFragment implements OnClickList
                     Bundle bundle = new Bundle();
                     bundle.putString(ProductListFragment.LIST_BY_FUNCTION, sub.subId);
                     product_cate_child.setArguments(bundle);
-                    ft.replace(R.id.realtabcontent, product_cate_child);
+                    ft.replace(R.id.content, product_cate_child);
                     ft.addToBackStack(null);
                     ft.commit();
                     context.getSupportFragmentManager().executePendingTransactions();
@@ -203,7 +203,7 @@ public class ProductCategoryFragment extends BaseFragment implements OnClickList
                     Bundle bundle = new Bundle();
                     bundle.putString(ProductListFragment.LIST_BY_BRAND, b.brandId);
                     product_cate_child.setArguments(bundle);
-                    ft.replace(R.id.realtabcontent, product_cate_child);
+                    ft.replace(R.id.content, product_cate_child);
                     ft.addToBackStack(null);
                     ft.commit();
                     context.getSupportFragmentManager().executePendingTransactions();
