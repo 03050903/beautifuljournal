@@ -46,7 +46,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     private int TAB_SIZE = 5 ;
     private int mMenuItemHeight;
     private int page = 1;
-    private int category[] = {101 , 102 , 103 , 104 , 105};         //类别
+    private int category[] = {0 , 0 , 0 , 0, 0};         //类别
    // private Map<String, MenuItem> sCategoryMap = new HashMap<String, MenuItem>();
     private List<List<Article>> articles = new ArrayList<List<Article>>();
     private ViewPager viewPager;
@@ -79,6 +79,8 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMenuItemHeight = Utils.dip2px(this.getActivity(), 40);
+        Bundle bundle = getArguments();   //获得bundle数据，
+        key = bundle.getString("key");
         /*
         sCategoryMap.put("beauty", new MenuItem(getString(R.string.menu_beauty_item1), 101));
         sCategoryMap.put("skin_protect", new MenuItem(getString(R.string.menu_skin_item1), 201));
@@ -111,17 +113,118 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         */
     }
 
+    public void InitView(View v, ViewGroup container, Bundle savedInstanceState){
+        TextView tv_article_list_title = (TextView)v.findViewById(R.id.tv_article_list_title);
+
+        radioGroup = (RadioGroup)v.findViewById(R.id.radio_group_switcher) ;
+        radioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
+
+
+        RadioButton[] radioButton = new RadioButton[5] ;
+        //radioGroup.removeAllViews();
+
+        if (key.equals("beauty")) {
+            tv_article_list_title.setText("美妆");
+            radioButton[0] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_1) ;
+            radioButton[0].setText(R.string.menu_beauty_item1);
+            //radioGroup.addView(radioButton , 0);
+            radioButton[1] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_2) ;
+            radioButton[1].setText(R.string.menu_beauty_item2);
+           // radioGroup.addView(radioButton , 1);
+            radioButton[2] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_3) ;
+            radioButton[2].setText(R.string.menu_beauty_item3);
+           // radioGroup.addView(radioButton , 2);
+            radioButton[3] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_4) ;
+            radioButton[3].setText(R.string.menu_beauty_item4);
+            //radioGroup.addView(radioButton , 3);
+            radioButton[4] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_5) ;
+            radioButton[4].setText(R.string.menu_beauty_item5);
+            //radioGroup.addView(radioButton , 4);
+            radioGroup.removeAllViews();
+            TAB_SIZE = 5 ;
+            for (int i = 0 ; i < TAB_SIZE ; i++){
+                radioGroup.addView(radioButton[i] , i);
+                category[i] = 101+i ;
+            }
+
+        } else if (key.equals("skin_protect")) {
+
+            tv_article_list_title.setText("护肤");
+            radioButton[0] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_1) ;
+            radioButton[0].setText(R.string.menu_skin_item1);
+            //radioGroup.addView(radioButton , 0);
+            radioButton[1] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_2) ;
+            radioButton[1].setText(R.string.menu_skin_item1);
+            //radioGroup.addView(radioButton , 1);
+            radioButton[2] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_3) ;
+            radioButton[2].setText(R.string.menu_skin_item1);
+           // radioGroup.addView(radioButton , 2);
+            radioButton[3] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_4) ;
+            radioButton[3].setText(R.string.menu_skin_item1);
+           // radioGroup.addView(radioButton , 3);
+            radioGroup.removeAllViews();
+            TAB_SIZE = 4 ;
+            for (int i = 0 ; i < TAB_SIZE ; i++){
+                radioGroup.addView(radioButton[i] , i);
+                category[i] = 201+i ;
+            }
+
+        } else if (key.equals("perfume")) {
+            tv_article_list_title.setText("香水");
+            radioButton[0] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_1) ;
+            radioButton[0].setText(R.string.menu_perfume_item1);
+            //radioGroup.addView(radioButton , 0);
+            radioButton[1] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_2) ;
+            radioButton[1].setText(R.string.menu_perfume_item2);
+            //radioGroup.addView(radioButton , 1);
+            radioGroup.removeAllViews();
+            TAB_SIZE = 2 ;
+            for (int i = 0 ; i < TAB_SIZE ; i++){
+                radioGroup.addView(radioButton[i] , i);
+                category[i] = 301+i ;
+            }
+
+        } else if (key.equals("news")) {
+            tv_article_list_title.setText("资讯");
+            radioButton[0] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_1) ;
+            radioButton[0].setText(R.string.menu_brand_item1);
+           // radioGroup.addView(radioButton , 0);
+            radioButton[1] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_2) ;
+            radioButton[1].setText(R.string.menu_brand_item2);
+            radioGroup.removeAllViews();
+
+            TAB_SIZE = 2 ;
+            for (int i = 0 ; i < TAB_SIZE ; i++){
+                radioGroup.addView(radioButton[i] , i);
+                category[i] = 401+i ;
+            }
+
+        }
+
+        //radioButton.setText(R.string.menu_beauty_item1);
+
+        // radioButton.setBackgroundResource(R.drawable.detail_article_2_select);
+        //radioButton.setTextSize(13);
+
+        // radioButton.setPadding(3,3,3,3);
+
+        //radioGroup.addView(radioButton , 0);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         View v = inflater.inflate(R.layout.activity_article_list, container, false);
+        InitView(v , container , savedInstanceState);
         pageCount = (TextView) v.findViewById(R.id.page_count);
-        TextView tv_article_list_title = (TextView)v.findViewById(R.id.tv_article_list_title);
-        tv_article_list_title.setText("美妆");
+
+
         initBack(v);    //初始化返回按钮
        // initCategorySwitcher(v);
         viewPager = (ViewPager) v.findViewById(R.id.article_list_viewpager);
-        radioGroup = (RadioGroup)v.findViewById(R.id.radio_group_switcher) ;
-        radioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
+
+
+
         mArticleListMessageView = (TextView) v.findViewById(R.id.articleListEmptyTextView);
         viewPager.setOnPageChangeListener(this);
         adapter = new ArticlePagerAdapter(this.getActivity());

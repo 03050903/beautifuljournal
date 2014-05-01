@@ -94,6 +94,7 @@ public class ArticlePagerAdapter extends PagerAdapter {
         int imageCount = 0;
         ListView listView =(ListView)pager.findViewById(R.id.lv_article_list) ;
         ArticleListAdapter articleListAdapter = new ArticleListAdapter(this.mContext , articleList) ;
+        articleListAdapter.setOnClickListener(mOnArticleItemClickListener) ;
         listView.setAdapter(articleListAdapter);
 
         /*

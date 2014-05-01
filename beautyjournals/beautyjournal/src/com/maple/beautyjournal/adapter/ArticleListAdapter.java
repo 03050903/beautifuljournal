@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.maple.beautyjournal.R;
 import com.maple.beautyjournal.entitiy.Article;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.*;
 
@@ -23,6 +26,9 @@ public class ArticleListAdapter extends BaseAdapter {
     private Context mContext;
     LayoutInflater layoutInflater = null;
     List<Article> articleList = null ;
+    boolean hasPicture = false ;
+    int firstPictureNo = -1 ;
+    private View.OnClickListener mOnArticleItemClickListener;
     private static final long MILLI_SECONDS_IN_HOUR = 3600 * 1000 + 1 ;
 
     public ArticleListAdapter(Context context, List<Article> articleList) {
@@ -32,30 +38,119 @@ public class ArticleListAdapter extends BaseAdapter {
         this.articleList = articleList ;
         //articleList = mArticles.get(0);
         this.mContext = context ;
+
+        for (int i = 0 ; i < articleList.size() ; i++){
+            article = articleList.get(i) ;
+            if (article.hasPic()){
+                hasPicture  = true ;
+                firstPictureNo = i ;
+                break;
+            }
+        }
+
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener){
+        this.mOnArticleItemClickListener = onClickListener;
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = layoutInflater.inflate(R.layout.article_list_view_text_item , null) ;
-        TextView articleTitleTextView = (TextView)view.findViewById(R.id.article_title) ;
-        TextView articleTimeTextView = (TextView)view.findViewById(R.id.article_time) ;
-        article = articleList.get(i);
-        articleTitleTextView.setText(article.title);
-        String relativeTime = getRelativeTimeString(article.releaseTime);
-        articleTimeTextView.setText(relativeTime);
-        if (System.currentTimeMillis() - article.releaseTime * 1000 < MILLI_SECONDS_IN_HOUR) {
-            //in the same hour, show "new" indicator
-            articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, mContext.getResources()
-                    .getDrawable(R.drawable.new_article_indicator), null);
-        } else {
-            articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+
+
+        if (i == 0){
+            if (hasPicture) {
+                view = layoutInflater.inflate(R.layout.article_list_view_image_item, null);
+                ImageView articleImageView = (ImageView)view.findViewById(R.id.article_image_view) ;
+                TextView articleTextView = (TextView) view.findViewById(R.id.article_title);
+                article = articleList.get(firstPictureNo) ;
+                articleTextView.setText(article.title);
+                articleImageView.setTag(article);
+                articleImageView.setOnClickListener(mOnArticleItemClickListener);
+                //ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this.mContext)
+                ImageLoader.getInstance().displayImage(article.pic, articleImageView);
+                articleImageView.setTag(article);
+            }
         }
-        //articleTimeTextView.setText(article);
+        else {
+            int currentItem = -1 ;
+            TextView articleTitleTextView = null;
+            TextView articleTimeTextView = null;
+            int picRow = -1 ;
+            picRow = (firstPictureNo *2)/3+1;
+            if (i<picRow){
+                currentItem = i -1 + (i-1)/2 ;
+                //article = articleList.get(i-1) ;
+            }
+            else {
+                currentItem = i + (i-1)/2 ;
+            }
+            article = articleList.get(currentItem);
+
+            if (i%2==0 && i < articleList.size()-2){
+                view = layoutInflater.inflate(R.layout.article_list_view_text_small_item , null) ;
+                LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.article_item_left) ;
+                articleTitleTextView = (TextView)view.findViewById(R.id.article_title_left) ;
+                articleTimeTextView = (TextView)view.findViewById(R.id.article_time_left) ;
+                articleTitleTextView.setText(article.title);
+                String relativeTime = getRelativeTimeString(article.releaseTime);
+                articleTimeTextView.setText(relativeTime);
+                linearLayout.setTag(article);
+                linearLayout.setOnClickListener(mOnArticleItemClickListener);
+                if (System.currentTimeMillis() - article.releaseTime * 1000 < MILLI_SECONDS_IN_HOUR) {
+                    //in the same hour, show "new" indicator
+                    articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, mContext.getResources()
+                            .getDrawable(R.drawable.new_article_indicator), null);
+                } else {
+                    articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+                if (currentItem +1 == firstPictureNo){
+                    currentItem++ ;
+                }
+                article = articleList.get(currentItem+1) ;
+
+                linearLayout = (LinearLayout)view.findViewById(R.id.article_item_right) ;
+                articleTitleTextView = (TextView)view.findViewById(R.id.article_title_right) ;
+                articleTimeTextView = (TextView)view.findViewById(R.id.article_time_right) ;
+                articleTitleTextView.setText(article.title);
+                relativeTime = getRelativeTimeString(article.releaseTime);
+                articleTimeTextView.setText(relativeTime);
+                linearLayout.setTag(article);
+                linearLayout.setOnClickListener(mOnArticleItemClickListener);
+                if (System.currentTimeMillis() - article.releaseTime * 1000 < MILLI_SECONDS_IN_HOUR) {
+                    //in the same hour, show "new" indicator
+                    articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, mContext.getResources()
+                            .getDrawable(R.drawable.new_article_indicator), null);
+                } else {
+                    articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+            }
+
+            else {
+                view = layoutInflater.inflate(R.layout.article_list_view_text_item, null);
+                articleTitleTextView = (TextView) view.findViewById(R.id.article_title);
+                articleTimeTextView = (TextView) view.findViewById(R.id.article_time);
+
+                articleTitleTextView.setText(article.title);
+                String relativeTime = getRelativeTimeString(article.releaseTime);
+                articleTimeTextView.setText(relativeTime);
+                view.setTag(article);
+                view.setOnClickListener(mOnArticleItemClickListener);
+                if (System.currentTimeMillis() - article.releaseTime * 1000 < MILLI_SECONDS_IN_HOUR) {
+                    //in the same hour, show "new" indicator
+                    articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, mContext.getResources()
+                            .getDrawable(R.drawable.new_article_indicator), null);
+                } else {
+                    articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+                //articleTimeTextView.setText(article);
+            }
+        }
         return view;
     }
 
     @Override
     public int getCount() {
-        return articleList.size();
+        return (articleList.size() *2/3)+1;
     }
 
     @Override
