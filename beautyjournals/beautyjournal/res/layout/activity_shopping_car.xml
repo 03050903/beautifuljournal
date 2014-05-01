@@ -6,11 +6,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/titlebar_bg"
+        android:layout_height="40dp"
+        android:background="#ff81a9"
         android:orientation="horizontal" >
 
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dip"
+            android:id="@+id/back_comment"
+            android:layout_width="30dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/left_arrow_2"/>
         <TextView
+            android:textColor="#ffffff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -93,7 +102,8 @@
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/products_count_label" />
+                    android:text="@string/products_count_label"
+                    />
 
                 <TextView
                     android:id="@+id/total_count"

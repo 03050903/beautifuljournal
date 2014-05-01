@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+<ImageView
+    android:id="@+id/shoping_car_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:src="@drawable/search_product_holder"/>
+    <TextView
+        android:id="@+id/shoping_car_tittle_2"
+        android:layout_toRightOf="@+id/shoping_car_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Coppercon水宝宝防水防晒乳"/>
+    <TextView
+        android:id="@+id/shoping_car_amout"
+        android:layout_below="@+id/shoping_car_tittle_2"
+        android:layout_toRightOf="@+id/shoping_car_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SPF30+237ml"/>
+    <TextView
+        android:id="@+id/shoping_car_product_price"
+        android:layout_below="@+id/shoping_car_amout"
+        android:layout_toRightOf="@+id/shoping_car_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="$88"/>
+    <LinearLayout
+        android:layout_below="@+id/shoping_car_product_price"
+        android:layout_toRightOf="@+id/shoping_car_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/star_2"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="数量:"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/add_amount"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="1"
+            android:gravity="center"
+            android:background="@drawable/amount"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/dd_d"/>
+        </LinearLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/shoping_car_image"
+        android:layout_width="match_parent"
+        android:background="#cccccc"
+        android:layout_height="1dp" />
+</RelativeLayout>

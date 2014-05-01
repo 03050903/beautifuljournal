@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp">
+   <LinearLayout
+       android:id="@+id/amount_bar"
+       android:layout_alignParentRight="true"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <TextView
+           android:layout_marginRight="30dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="商品数量 :"/>
+       <TextView
+           android:id="@+id/product_amount"
+           android:gravity="right"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#ff81a9"
+           android:text="3"/>
+       </LinearLayout>
+   <LinearLayout
+       android:id="@+id/price_bar"
+       android:layout_alignParentRight="true"
+       android:layout_below="@+id/amount_bar"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <TextView
+           android:layout_marginRight="30dp"
+           android:layout_alignParentRight="true"
+           android:layout_below="@+id/product_image"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="商品总价 :"/>
+       <TextView
+           android:id="@+id/product_price_shoping"
+           android:gravity="right"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#ff81a9"
+           android:text="$93"/>
+       </LinearLayout>
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/price_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/settle_acount_image"/>
+</RelativeLayout>
