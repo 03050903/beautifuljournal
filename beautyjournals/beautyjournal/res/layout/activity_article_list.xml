@@ -21,6 +21,7 @@
 		    <RadioButton
 				    android:id="@+id/radio_btn_switcher_item_1"
 				    style="@style/article_list_radio_button_style"
+				    android:gravity="center"
 				    android:text="整体妆容"
 		            android:checked="true"
 				    />

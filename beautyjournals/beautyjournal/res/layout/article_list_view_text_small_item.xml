@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:divider="#adadad"
+              android:showDividers="middle"
+		>
+	<LinearLayout
+			android:id="@+id/article_item_left"
+	              android:orientation="vertical"
+	              android:layout_width="160dp"
+	              android:layout_height="wrap_content">
+		<TextView
+				android:id="@+id/article_title_left"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:textColor="#333333"
+				android:textSize="18sp"
+				android:layout_marginLeft="25dp"
+				android:layout_marginTop="20dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginRight="25dp"
+				/>
+		<TextView
+				android:id="@+id/article_time_left"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:textColor="#666666"
+				android:textSize="14sp"
+				android:layout_marginLeft="25dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginRight="25dp"
+				/>
+
+	</LinearLayout>
+	<TextView
+			android:layout_height="match_parent"
+	        android:layout_width="1dp"
+	        android:background="#adadad"
+			/>
+	<LinearLayout
+			android:id="@+id/article_item_right"
+	              android:orientation="vertical"
+	              android:layout_width="160dp"
+	              android:layout_height="wrap_content">
+		<TextView
+				android:id="@+id/article_title_right"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:textColor="#333333"
+				android:textSize="18sp"
+				android:layout_marginLeft="25dp"
+				android:layout_marginTop="20dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginRight="25dp"
+				/>
+		<TextView
+				android:id="@+id/article_time_right"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:textColor="#666666"
+				android:textSize="14sp"
+				android:layout_marginLeft="25dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginRight="25dp"
+				/>
+
+	</LinearLayout>
+
+</LinearLayout>
