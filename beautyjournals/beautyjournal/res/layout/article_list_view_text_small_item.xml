@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="70dp"
               android:divider="#adadad"
               android:showDividers="middle"
 		>
-	<LinearLayout
+	<RelativeLayout
 			android:id="@+id/article_item_left"
-	              android:orientation="vertical"
 	              android:layout_width="160dp"
-	              android:layout_height="wrap_content">
+	              android:layout_height="match_parent">
 		<TextView
 				android:id="@+id/article_title_left"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				android:textColor="#333333"
 				android:textSize="18sp"
-				android:layout_marginLeft="25dp"
-				android:layout_marginTop="20dp"
-				android:layout_marginBottom="20dp"
-				android:layout_marginRight="25dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="5dp"
+				android:layout_marginRight="20dp"
 				/>
 		<TextView
 				android:id="@+id/article_time_left"
@@ -29,32 +27,34 @@
 				android:layout_width="match_parent"
 				android:textColor="#666666"
 				android:textSize="14sp"
-				android:layout_marginLeft="25dp"
-				android:layout_marginBottom="20dp"
-				android:layout_marginRight="25dp"
+				android:layout_below="@+id/article_title_left"
+				android:layout_marginLeft="20dp"
+				android:layout_alignParentBottom="true"
+				android:layout_marginTop="5dp"
+				android:paddingBottom="20dp"
+				android:layout_marginRight="20dp"
 				/>
 
-	</LinearLayout>
+	</RelativeLayout>
 	<TextView
 			android:layout_height="match_parent"
 	        android:layout_width="1dp"
 	        android:background="#adadad"
 			/>
-	<LinearLayout
+	<RelativeLayout
 			android:id="@+id/article_item_right"
-	              android:orientation="vertical"
 	              android:layout_width="160dp"
-	              android:layout_height="wrap_content">
+	              android:layout_height="fill_parent">
 		<TextView
 				android:id="@+id/article_title_right"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				android:textColor="#333333"
 				android:textSize="18sp"
-				android:layout_marginLeft="25dp"
-				android:layout_marginTop="20dp"
-				android:layout_marginBottom="20dp"
-				android:layout_marginRight="25dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="5dp"
+				android:layout_marginRight="20dp"
 				/>
 		<TextView
 				android:id="@+id/article_time_right"
@@ -62,11 +62,14 @@
 				android:layout_width="match_parent"
 				android:textColor="#666666"
 				android:textSize="14sp"
-				android:layout_marginLeft="25dp"
-				android:layout_marginBottom="20dp"
-				android:layout_marginRight="25dp"
+				android:layout_below="@+id/article_title_right"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="5dp"
+				android:layout_alignParentBottom="true"
+				android:paddingBottom="20dp"
+				android:layout_marginRight="20dp"
 				/>
 
-	</LinearLayout>
+	</RelativeLayout>
 
 </LinearLayout>

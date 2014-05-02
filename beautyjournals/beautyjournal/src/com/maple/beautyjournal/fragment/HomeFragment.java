@@ -272,6 +272,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
             ft.commit();
             getActivity().getSupportFragmentManager().executePendingTransactions();
         }
+        getActivity().findViewById(R.id.bottom).setVisibility(View.GONE);
 
     }
 

@@ -223,7 +223,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
        // initCategorySwitcher(v);
         viewPager = (ViewPager) v.findViewById(R.id.article_list_viewpager);
 
-
+        //getActivity().findViewById(R.id.bottom).setVisibility(View.GONE);
 
         mArticleListMessageView = (TextView) v.findViewById(R.id.articleListEmptyTextView);
         viewPager.setOnPageChangeListener(this);
