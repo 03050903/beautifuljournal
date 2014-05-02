@@ -5,22 +5,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.i2mobi.net.HttpClientImplUtil;
@@ -28,12 +23,8 @@ import com.i2mobi.net.NetUtil;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.broadcast.BootCompleteBroadcast;
-import com.maple.beautyjournal.fragment.FavoriteFragment;
 import com.maple.beautyjournal.fragment.PersonCenterFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryFragment;
-import com.maple.beautyjournal.fragment.ProductListFragment;
-import com.maple.beautyjournal.fragment.SettingFragment;
-import com.maple.beautyjournal.fragment.ShoppingCarFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
@@ -48,7 +39,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -172,7 +162,11 @@ public class MainActivity extends BaseFragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
+                /**
+                 * android系统sqlite数据库路径，数据库文件：DatabaseHelper.DB_NAME
+                 * add by snail.
+                 * 2014/5/2.
+                 */
                 String filename = MainActivity.this.getDatabasePath(DatabaseHelper.DB_NAME).getAbsolutePath();  //不知道得到什么路径
                 Log.d("XXX",filename);
                 ///data/data/com.maple.beautyjournal/databases/beauty.db
@@ -340,6 +334,13 @@ public class MainActivity extends BaseFragmentActivity {
             return null;
         }
     }
+
+    /**
+     * 获取商品功效列表
+     * 从网络获取信息，缓存到本地数据库.
+     * add by snail.
+     * 2014/5/2.
+     */
     //获取作用，这里指某个文章或者商品的作用数据库
     //内部类，获取function。。。完全不知道是什么东西
     private class GetFunctionTask extends AsyncTask<Void, Void, Void> {
