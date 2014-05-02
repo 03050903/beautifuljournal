@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.maple.beautyjournal.R;
 import com.maple.beautyjournal.entitiy.Article;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.*;
 
@@ -60,6 +62,8 @@ public class ArticleListAdapter extends BaseAdapter {
         if (i == 0){
             if (hasPicture) {
                 view = layoutInflater.inflate(R.layout.article_list_view_image_item, null);
+                DisplayImageOptions options = new DisplayImageOptions.Builder().imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build() ;
+
                 ImageView articleImageView = (ImageView)view.findViewById(R.id.article_image_view) ;
                 TextView articleTextView = (TextView) view.findViewById(R.id.article_title);
                 article = articleList.get(firstPictureNo) ;
@@ -67,7 +71,7 @@ public class ArticleListAdapter extends BaseAdapter {
                 articleImageView.setTag(article);
                 articleImageView.setOnClickListener(mOnArticleItemClickListener);
                 //ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this.mContext)
-                ImageLoader.getInstance().displayImage(article.pic, articleImageView);
+                ImageLoader.getInstance().displayImage(article.pic, articleImageView , options);
                 articleImageView.setTag(article);
             }
         }
