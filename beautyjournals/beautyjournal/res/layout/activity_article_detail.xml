@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/titlebar_bg"
+            android:background="#ff81A9"
             android:orientation="horizontal" >
 
             <ImageView
@@ -33,6 +33,15 @@
                 android:clickable="true"
                 android:text="@string/title_article_detail"
                 style="@style/titleBarText" />
+
+            <ImageView
+                android:id="@+id/article_comment"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/article_comment"/>
         </RelativeLayout>
 
         <TextView

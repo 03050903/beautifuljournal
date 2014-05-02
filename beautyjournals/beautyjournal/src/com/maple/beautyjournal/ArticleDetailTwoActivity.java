@@ -2,17 +2,14 @@ package com.maple.beautyjournal;
 
 
 import android.content.Intent;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
+import android.widget.RadioGroup;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.maple.beautyjournal.fragment.ArticleListFragment;
-
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.Fragment;
 
 /**
  * Created by mosl on 14-4-11.
@@ -41,8 +38,8 @@ public class ArticleDetailTwoActivity extends SherlockFragmentActivity{
            }
        });
         */
-
        setContentView(R.layout.activity_main);
+       //TabWidget tabWidget =findViewById(R.id.tab) ;
        Bundle bundle =getIntent().getExtras();
        String categry=(String)bundle.get("key");
        if(categry.endsWith("btn_beauty")){

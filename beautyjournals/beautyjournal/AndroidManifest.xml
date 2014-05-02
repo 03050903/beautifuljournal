@@ -101,14 +101,12 @@
         <service android:name=".service.AutoUpdateService"></service>
         <activity android:name="OrderListActivity"></activity>
         <activity android:name="OrderDetailActivity"></activity>
-        <activity android:name=".TestActivity" android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".ArticleDetailTwoActivity" >
-
-        </activity>
+        <activity android:name=".TestActivity"  />
+        <activity android:name=".ArticleDetailTwoActivity"  />
         <activity android:name=".SearchActivity" />
         <activity android:name=".ShopingCarActivity" />
+        <activity android:name=".ArticleCommentActivity" />
+        <activity android:name=".dialog.ArticleCommentAtivityDialog" android:theme="@android:style/Theme.Dialog"/>
 
 
     </application>

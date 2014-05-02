@@ -6,8 +6,8 @@
 	<ImageView
 			android:id="@+id/article_image_view"
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:scaleType="fitStart"
+	        android:layout_height="180dp"
+	        android:scaleType="centerCrop"
 			/>
 	<RelativeLayout
                 android:id="@+id/article_image_item"

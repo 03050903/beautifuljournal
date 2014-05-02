@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key", "beauty");    //传递key=beauty
+                bundle.putString("key", "btn_beauty");    //传递key=beauty
                 Intent intent=new Intent();
                 intent.putExtras(bundle);
                 intent.setClass(context,ArticleDetailTwoActivity.class);

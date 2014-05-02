@@ -62,6 +62,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     private boolean isFavorite = false;
     private View expend;
     private View mNotFoundView;
+    private ImageView article_comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,16 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
         });
         context = this;
+        article_comment=(ImageView)findViewById(R.id.article_comment);
+        article_comment.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Bundle bundle=new Bundle();
+                bundle.putString("articleId",itemId);
+                startActivity(new Intent(ArticleDetailActivity.this,ArticleCommentActivity.class).putExtras(bundle));
+                return false;
+            }
+        });
         this.mNotFoundView = findViewById(R.id.article_not_found_view);
     }
 

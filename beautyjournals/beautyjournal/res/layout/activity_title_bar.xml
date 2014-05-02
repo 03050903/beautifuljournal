@@ -19,4 +19,5 @@
 	        android:layout_centerVertical="true"
 	        android:textColor="@color/white"
 			/>
+
 </RelativeLayout>

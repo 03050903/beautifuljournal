@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-
+import android.widget.LinearLayout;
 import com.actionbarsherlock.app.ActionBar;
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
@@ -28,7 +28,6 @@ import com.maple.beautyjournal.fragment.ProductCategoryFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,6 +49,7 @@ public class MainActivity extends BaseFragmentActivity {
     private ImageView shoping_city;
     private ImageView person_center;
     private ImageView shoping_car;
+    private LinearLayout bottom ;
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -64,15 +64,21 @@ public class MainActivity extends BaseFragmentActivity {
 
         fragmentManager=getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         HomeFragment homeFragment=new HomeFragment();
         transaction.replace(R.id.content,homeFragment);
         transaction.commit();
+        bottom = (LinearLayout)findViewById(R.id.bottom) ;
+        //HideBottom();
         Intent intent = new Intent(BootCompleteBroadcast.ACTION_APPBOOTCOMPLETED);
         sendBroadcast(intent);  //发送广播
-       // initOtherData();
+        initOtherData();
 
     }
+
+    public void HideBottom(){
+        bottom.setVisibility(View.GONE);
+    }
+
     private void initOtherData(){
         new GetCategoryTask().execute();
         new  GetFunctionTask().execute();
@@ -106,14 +112,7 @@ public class MainActivity extends BaseFragmentActivity {
         shoping_city.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                /*
-                fragmentManager=getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
-                ProductListFragment productListFragment=new ProductListFragment();
-                transaction.replace(R.id.content,productListFragment);
-                transaction.commit();
-                return false;*/
+
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
 
@@ -131,7 +130,6 @@ public class MainActivity extends BaseFragmentActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 fragmentManager=getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
                 HomeFragment homeFragment=new HomeFragment();
                 transaction.replace(R.id.content,homeFragment);
                 transaction.commit();
@@ -143,7 +141,6 @@ public class MainActivity extends BaseFragmentActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 fragmentManager=getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
                 PersonCenterFragment personCenterFragment=new PersonCenterFragment();
                 transaction.replace(R.id.content,personCenterFragment);
                 transaction.commit();

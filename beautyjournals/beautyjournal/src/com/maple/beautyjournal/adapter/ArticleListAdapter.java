@@ -6,13 +6,12 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.maple.beautyjournal.R;
 import com.maple.beautyjournal.entitiy.Article;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.*;
 
@@ -60,6 +59,8 @@ public class ArticleListAdapter extends BaseAdapter {
         if (i == 0){
             if (hasPicture) {
                 view = layoutInflater.inflate(R.layout.article_list_view_image_item, null);
+                DisplayImageOptions options = new DisplayImageOptions.Builder().imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build() ;
+
                 ImageView articleImageView = (ImageView)view.findViewById(R.id.article_image_view) ;
                 TextView articleTextView = (TextView) view.findViewById(R.id.article_title);
                 article = articleList.get(firstPictureNo) ;
@@ -67,7 +68,7 @@ public class ArticleListAdapter extends BaseAdapter {
                 articleImageView.setTag(article);
                 articleImageView.setOnClickListener(mOnArticleItemClickListener);
                 //ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this.mContext)
-                ImageLoader.getInstance().displayImage(article.pic, articleImageView);
+                ImageLoader.getInstance().displayImage(article.pic, articleImageView , options);
                 articleImageView.setTag(article);
             }
         }
@@ -88,14 +89,17 @@ public class ArticleListAdapter extends BaseAdapter {
 
             if (i%2==0 && i < articleList.size()-2){
                 view = layoutInflater.inflate(R.layout.article_list_view_text_small_item , null) ;
-                LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.article_item_left) ;
+                RelativeLayout relativeLayout = (RelativeLayout)view.findViewById(R.id.article_item_left) ;
                 articleTitleTextView = (TextView)view.findViewById(R.id.article_title_left) ;
                 articleTimeTextView = (TextView)view.findViewById(R.id.article_time_left) ;
+                if (article.title.length() > 12){
+                    articleTitleTextView.setTextSize(16);
+                }
                 articleTitleTextView.setText(article.title);
                 String relativeTime = getRelativeTimeString(article.releaseTime);
                 articleTimeTextView.setText(relativeTime);
-                linearLayout.setTag(article);
-                linearLayout.setOnClickListener(mOnArticleItemClickListener);
+                relativeLayout.setTag(article);
+                relativeLayout.setOnClickListener(mOnArticleItemClickListener);
                 if (System.currentTimeMillis() - article.releaseTime * 1000 < MILLI_SECONDS_IN_HOUR) {
                     //in the same hour, show "new" indicator
                     articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, mContext.getResources()
@@ -108,14 +112,17 @@ public class ArticleListAdapter extends BaseAdapter {
                 }
                 article = articleList.get(currentItem+1) ;
 
-                linearLayout = (LinearLayout)view.findViewById(R.id.article_item_right) ;
+                relativeLayout = (RelativeLayout)view.findViewById(R.id.article_item_right) ;
                 articleTitleTextView = (TextView)view.findViewById(R.id.article_title_right) ;
                 articleTimeTextView = (TextView)view.findViewById(R.id.article_time_right) ;
+                if (article.title.length() > 12){
+                    articleTitleTextView.setTextSize(16);
+                }
                 articleTitleTextView.setText(article.title);
                 relativeTime = getRelativeTimeString(article.releaseTime);
                 articleTimeTextView.setText(relativeTime);
-                linearLayout.setTag(article);
-                linearLayout.setOnClickListener(mOnArticleItemClickListener);
+                relativeLayout.setTag(article);
+                relativeLayout.setOnClickListener(mOnArticleItemClickListener);
                 if (System.currentTimeMillis() - article.releaseTime * 1000 < MILLI_SECONDS_IN_HOUR) {
                     //in the same hour, show "new" indicator
                     articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, mContext.getResources()

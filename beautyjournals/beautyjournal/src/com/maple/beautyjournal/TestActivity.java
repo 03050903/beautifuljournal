@@ -14,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
+import com.maple.beautyjournal.base.BaseActivity;
+import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.dialog.ArticleCommentDialog;
 import com.maple.beautyjournal.entitiy.Recommend;
 import com.maple.beautyjournal.utils.ServerDataUtils;
@@ -28,14 +31,20 @@ import org.w3c.dom.Text;
 /**
  * Created by mosl on 14-4-10.
  */
-public class TestActivity extends Activity {
+public class TestActivity extends BaseFragmentActivity {
 
 
 
         public void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_article_comment);
+            setContentView(R.layout.activity_article_comment_dia);
+
+            ActionBar bar = getSupportActionBar();
+            if (bar != null) {
+                bar.hide();
+            }
+
         }
 
 //
