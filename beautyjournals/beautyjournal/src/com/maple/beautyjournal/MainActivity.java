@@ -5,50 +5,33 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
-import android.widget.TextView;
-
+import android.widget.LinearLayout;
 import com.actionbarsherlock.app.ActionBar;
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.broadcast.BootCompleteBroadcast;
-import com.maple.beautyjournal.fragment.FavoriteFragment;
 import com.maple.beautyjournal.fragment.PersonCenterFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryFragment;
-import com.maple.beautyjournal.fragment.ProductListFragment;
-import com.maple.beautyjournal.fragment.SettingFragment;
-import com.maple.beautyjournal.fragment.ShoppingCarFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
+import java.io.*;
 import java.util.Iterator;
 
 
@@ -60,6 +43,7 @@ public class MainActivity extends BaseFragmentActivity {
     private ImageView shoping_city;
     private ImageView person_center;
     private ImageView shoping_car;
+    private LinearLayout bottom ;
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -78,11 +62,18 @@ public class MainActivity extends BaseFragmentActivity {
         HomeFragment homeFragment=new HomeFragment();
         transaction.replace(R.id.content,homeFragment);
         transaction.commit();
+        bottom = (LinearLayout)findViewById(R.id.bottom) ;
+        //HideBottom();
         Intent intent = new Intent(BootCompleteBroadcast.ACTION_APPBOOTCOMPLETED);
         sendBroadcast(intent);  //发送广播
        // initOtherData();
 
     }
+
+    public void HideBottom(){
+        bottom.setVisibility(View.GONE);
+    }
+
     private void initOtherData(){
         new GetCategoryTask().execute();
         new  GetFunctionTask().execute();
