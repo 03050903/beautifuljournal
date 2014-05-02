@@ -1,6 +1,7 @@
 package com.maple.beautyjournal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -103,6 +105,17 @@ public class SearchActivity extends BaseActivity {
         searchDataAdapter=new SearchDataAdapter(context);
         searchjListView=(ListView)findViewById(R.id.choose_listview);
         searchjListView.setAdapter(searchDataAdapter);
+        searchjListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView item_id=(TextView)view.findViewById(R.id.item_id);
+                Intent intent=new Intent();
+                intent.getStringExtra(item_id.getText().toString());
+                intent.setClass(SearchActivity.this,ArticleDetailActivity.class);
+                startActivity(intent);
+              //  Log.d("XXX",""+position+"---long id"+id+"--"+search_tittle.getText());
+            }
+        });
         Bundle bundle=getIntent().getBundleExtra("key");
         if(bundle!=null){
             String search=bundle.get("search").toString();
@@ -234,6 +247,8 @@ public class SearchActivity extends BaseActivity {
                 if(searchArticleInfos.size()>0) {
                     TextView tittle = (TextView) convertView.findViewById(R.id.search_tittle);
                     tittle.setText(searchArticleInfos.get(position).item_tittle);
+                    TextView item_id=(TextView)convertView.findViewById(R.id.item_id);
+                    item_id.setText(searchArticleInfos.get(position).item_id);
                     TextView theme = (TextView) convertView.findViewById(R.id.search_theme);
                     theme.setText(searchArticleInfos.get(position).item_category);
                 }

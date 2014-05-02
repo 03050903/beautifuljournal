@@ -74,13 +74,12 @@ public class MainActivity extends BaseFragmentActivity {
 
         fragmentManager=getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         HomeFragment homeFragment=new HomeFragment();
         transaction.replace(R.id.content,homeFragment);
         transaction.commit();
         Intent intent = new Intent(BootCompleteBroadcast.ACTION_APPBOOTCOMPLETED);
         sendBroadcast(intent);  //发送广播
-       // initOtherData();
+        initOtherData();
 
     }
     private void initOtherData(){
@@ -116,14 +115,7 @@ public class MainActivity extends BaseFragmentActivity {
         shoping_city.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                /*
-                fragmentManager=getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
-                ProductListFragment productListFragment=new ProductListFragment();
-                transaction.replace(R.id.content,productListFragment);
-                transaction.commit();
-                return false;*/
+
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
 
@@ -141,7 +133,6 @@ public class MainActivity extends BaseFragmentActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 fragmentManager=getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
                 HomeFragment homeFragment=new HomeFragment();
                 transaction.replace(R.id.content,homeFragment);
                 transaction.commit();
@@ -153,7 +144,6 @@ public class MainActivity extends BaseFragmentActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 fragmentManager=getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
                 PersonCenterFragment personCenterFragment=new PersonCenterFragment();
                 transaction.replace(R.id.content,personCenterFragment);
                 transaction.commit();

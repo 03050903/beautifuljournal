@@ -14,9 +14,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <ImageView
+
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dip"
-                    android:id="@+id/back_comment"
+                    android:onClick="onBack"
                     android:layout_width="30dip"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -31,6 +32,7 @@
                     android:textSize="25dip"
                     android:textColor="#ffffff"/>
                 <ImageView
+                    android:id="@+id/article_reflesh"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="50dip"
                     android:layout_width="40dip"
@@ -51,17 +53,20 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/pen_commit"/>
                     <EditText
+                        android:onClick="editComment"
                         android:hint="写评论"
-                        style="@style/ArticleCommentEditText" />
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"/>
                 </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout
+                    android:id="@+id/nocomment"
                     android:layout_weight="1"
                     android:layout_marginTop="80dip"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    >
                     <TextView
                         android:gravity="center"
                         android:layout_width="match_parent"
@@ -77,11 +82,18 @@
                         />
 
                 </LinearLayout>
-                <ListView
-                        android:layout_weight="1"
+                <LinearLayout
+                    android:id="@+id/layout_comment"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ListView
                         android:id="@+id/list_article_comment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         >
-                </ListView>
+                    </ListView>
+                    </LinearLayout>
+
 </LinearLayout>
