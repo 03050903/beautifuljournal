@@ -256,6 +256,9 @@ public class SearchActivity extends BaseActivity {
             }else{
                 convertView = LayoutInflater.from(context).inflate(R.layout.search_product_listview_item, null);
                 if(searchProductInfos.size()>0) {
+
+
+                    
                     ImageView productImage=(ImageView)convertView.findViewById(R.id.product_image_search);
                     TextView productTittle=(TextView)convertView.findViewById(R.id.tittle_product);
                     ImageView productStar=(ImageView)convertView.findViewById(R.id.starstar);
