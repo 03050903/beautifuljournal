@@ -91,17 +91,20 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
         });
         context = this;
+
+        this.mNotFoundView = findViewById(R.id.article_not_found_view);
         article_comment=(ImageView)findViewById(R.id.article_comment);
         article_comment.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                Intent intent =new Intent(ArticleDetailActivity.this,ArticleCommentActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putString("articleId",itemId);
-                startActivity(new Intent(ArticleDetailActivity.this,ArticleCommentActivity.class).putExtras(bundle));
+                intent.putExtras(bundle);
+                startActivity(intent);
                 return false;
             }
         });
-        this.mNotFoundView = findViewById(R.id.article_not_found_view);
     }
 
     private void addImageClickListener() {

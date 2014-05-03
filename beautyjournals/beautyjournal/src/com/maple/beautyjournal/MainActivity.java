@@ -342,8 +342,8 @@ public class MainActivity extends BaseFragmentActivity {
      * add by snail.
      * 2014/5/2.
      */
-    //获取作用，这里指某个文章或者商品的作用数据库
-    //内部类，获取function。。。完全不知道是什么东西
+
+
     private class GetFunctionTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {

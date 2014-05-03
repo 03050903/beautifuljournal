@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -119,6 +120,13 @@ public class SearchActivity extends BaseActivity {
                     intent.setClass(SearchActivity.this, ArticleDetailActivity.class);
                     startActivity(intent);
                 }
+                else{
+                    TextView item_id=(TextView)view.findViewById(R.id.item_id);
+                    Intent intent = new Intent();
+                    intent.getStringExtra(item_id.getText().toString());
+                    intent.setClass(SearchActivity.this, ProductDetailActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         Bundle bundle=getIntent().getBundleExtra("key");
@@ -127,6 +135,8 @@ public class SearchActivity extends BaseActivity {
             searchEdit.setText(bundle.get("search").toString());
             new GetSearchTittle().execute(search);
         }
+
+
     }
 
     private class SearchTextWatcher implements TextWatcher{
@@ -265,6 +275,8 @@ public class SearchActivity extends BaseActivity {
                     TextView productComments=(TextView)convertView.findViewById(R.id.product_comments);
                     productTittle.setText(searchProductInfos.get(position).item_name);
                     productPrice.setText(searchProductInfos.get(position).item_price);
+                    TextView item_id=(TextView)convertView.findViewById(R.id.item_id);
+                    item_id.setText(searchProductInfos.get(position).item_id);
                 }
                 return convertView;
             }
