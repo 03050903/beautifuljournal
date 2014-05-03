@@ -87,7 +87,7 @@ public class ArticleListAdapter extends BaseAdapter {
             }
             article = articleList.get(currentItem);
 
-            if (i%2==0 && i < articleList.size()-2){
+            if (i%2==0 && currentItem < articleList.size()-1){
                 view = layoutInflater.inflate(R.layout.article_list_view_text_small_item , null) ;
                 RelativeLayout relativeLayout = (RelativeLayout)view.findViewById(R.id.article_item_left) ;
                 articleTitleTextView = (TextView)view.findViewById(R.id.article_title_left) ;
@@ -107,9 +107,13 @@ public class ArticleListAdapter extends BaseAdapter {
                 } else {
                     articleTimeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 }
-                if (currentItem +1 == firstPictureNo){
+                if (currentItem +1 == firstPictureNo ){
                     currentItem++ ;
                 }
+                if (currentItem == articleList.size() - 1){
+                    return view ;
+                }
+
                 article = articleList.get(currentItem+1) ;
 
                 relativeLayout = (RelativeLayout)view.findViewById(R.id.article_item_right) ;
