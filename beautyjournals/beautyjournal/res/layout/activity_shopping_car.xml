@@ -17,6 +17,7 @@
             android:layout_width="30dip"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:onClick="onBack"
             android:src="@drawable/left_arrow_2"/>
         <TextView
             android:textColor="#ffffff"

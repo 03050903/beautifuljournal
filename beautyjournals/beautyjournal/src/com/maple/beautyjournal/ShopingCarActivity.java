@@ -131,7 +131,9 @@ public class ShopingCarActivity extends BaseActivity {
         });
         setContentView(v);
     }
-
+  public void onBack(View v){
+      onBackPressed();
+  }
     private void gotoProductPage() {
         /*
         FragmentManager fm = context.getSupportFragmentManager();
