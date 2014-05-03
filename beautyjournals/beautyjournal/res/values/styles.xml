@@ -78,6 +78,7 @@
 		<item name="android:textSize">13sp</item>
 		<item name="android:paddingLeft">3dip</item>
 		<item name="android:paddingRight">3dip</item>
+		<item name="android:gravity">center</item>>
 		<item name="android:background">@drawable/detail_article_2_select</item>
         <item name="android:gravity">center</item>
 	</style>
