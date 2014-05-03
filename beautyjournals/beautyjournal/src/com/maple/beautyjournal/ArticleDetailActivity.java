@@ -223,6 +223,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
                             product.id = productObject.getString("id");
                             product.name = productObject.getString("name");
                             product.pic = URLConstant.SERVER_ADDRESS + productObject.getString("icon");
+                            //fLog.d("XXX","pic--------------"+product.pic);
                             Log.d(TAG, "product is " + product.id + " " + product.name + " " + productObject
                                     .getString("icon"));
                             mRelatedProducts.add(product);
@@ -290,6 +291,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
             final Product p = getItem(position);
             ImageLoader.getInstance().displayImage(p.pic, v);
+            Log.d("XXX",p.pic+"----------------");
             if (v != null) {
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override

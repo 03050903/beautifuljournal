@@ -1,5 +1,7 @@
 package com.maple.beautyjournal.entitiy;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 /**
@@ -24,6 +26,7 @@ public class SearchProductInfo {
         searchProductInfo.item_brand=obj.optString("item_brand");
         searchProductInfo.item_des=obj.optString("item_des");
         searchProductInfo.item_image=obj.optString("item_image");
+        Log.d("XXX", searchProductInfo.item_image);
         return searchProductInfo;
     }
 }

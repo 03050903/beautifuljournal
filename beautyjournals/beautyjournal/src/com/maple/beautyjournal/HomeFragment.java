@@ -109,6 +109,7 @@ public class HomeFragment extends Fragment {
         }
         @Override
         public int getCount() {
+
             return hotWords.size();
         }
 

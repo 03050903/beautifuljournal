@@ -322,8 +322,11 @@ public class ProductListFragment extends BaseFragment implements OnClickListener
             if (!TextUtils.isEmpty(product.pic)) {
                 if (product.pic.startsWith("http")) {
                     ImageLoader.getInstance().displayImage(product.pic, iv);
+                    Log.d("XXX",product.pic+"000000");
+
                 } else {
                     ImageLoader.getInstance().displayImage(URLConstant.SERVER_ADDRESS + product.pic, iv);
+                    Log.d("XXX",product.pic+"55555");
                 }
             } else {
                 iv.setImageResource(R.drawable.default_product);

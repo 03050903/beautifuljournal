@@ -17,10 +17,12 @@ import android.widget.TextView;
 
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
+import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseActivity;
 import com.maple.beautyjournal.dialog.ArticleCommentAtivityDialog;
 import com.maple.beautyjournal.entitiy.ArticleComment;
 import com.maple.beautyjournal.utils.ServerDataUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -98,11 +100,13 @@ public class ArticleCommentActivity extends BaseActivity {
             if(convertView==null){
                 convertView= LayoutInflater.from(ArticleCommentActivity.this).inflate(R.layout.article_comment_item, parent, false);
             }
+            ArticleComment articleComment=articleCommentList.get(position);
             ImageView userImage=(ImageView)convertView.findViewById(R.id.userImage_comment);
+            if(!articleComment.userimage.equals(""))
+            ImageLoader.getInstance().displayImage(URLConstant.SERVER_ADDRESS + articleComment.userimage, userImage);
             TextView username=(TextView)convertView.findViewById(R.id.username_comment);
             TextView time=(TextView)convertView.findViewById(R.id.time_comment);
             TextView content=(TextView)convertView.findViewById(R.id.content_comment);
-            ArticleComment articleComment=articleCommentList.get(position);
             username.setText(articleComment.username);
             time.setText(articleComment.time);
             content.setText(articleComment.content);

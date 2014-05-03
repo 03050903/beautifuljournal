@@ -103,4 +103,12 @@
         <item name="android:textSize">18dp</item>
     </style>
 
+    <style name="accountEditText">
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
