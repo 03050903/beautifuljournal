@@ -106,7 +106,6 @@ public class MainActivity extends BaseFragmentActivity {
         shoping_car.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 startActivity(new Intent(MainActivity.this,ShopingCarActivity.class));
                 return false;
             }

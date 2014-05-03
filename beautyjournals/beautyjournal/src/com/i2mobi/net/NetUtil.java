@@ -309,6 +309,9 @@ public abstract class NetUtil implements URLConstant, HttpConstant {
     public static String getArticleCommentUrl(Context context,String articleId,int size){
         return String.format(ARTICLE_COMMENT,articleId,Integer.toString(size));
     }
+    public static String getArticleToCommentUrl(){
+        return ToArticle_Comment;
+    }
     public static String getHotWords(Context context,int num){
         String appId = getAppID(context);
         return String.format(HotWords_URL, Integer.toString(num));
