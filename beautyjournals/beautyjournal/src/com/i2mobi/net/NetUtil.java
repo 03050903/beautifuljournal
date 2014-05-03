@@ -419,6 +419,30 @@ public abstract class NetUtil implements URLConstant, HttpConstant {
     public static String getFeedbackUrl() {
         return FEEDBACK_URL;
     }
+    
+    /**
+     * 获取商城分类列表
+     * @return
+     */
+    public static String getCategoryList(){
+    	return CATEGORY_LIST_URL;
+    }
+    
+    /**
+     * 获取品牌列表
+     * @return
+     */
+    public static String getBrandList(){
+    	return BRAND_LIST_URL;
+    }
+    
+    /**
+     * 获取功效列表
+     * @return
+     */
+    public static String getFunctionList(){
+    	return FUNCTION_LIST_URL;
+    }
 
     //获得搜索的url
     public static String getSearchUrl(Context context){

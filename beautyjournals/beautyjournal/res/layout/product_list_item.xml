@@ -29,41 +29,40 @@
             android:singleLine="false"
             android:textColor="@android:color/black" />
 
+        <RatingBar
+            android:id="@+id/rate"
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="2dip"
+            android:isIndicator="true"
+            android:progressDrawable="@drawable/star"
+            android:stepSize="1.0" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:orientation="horizontal" >
 
-            <RatingBar
-                android:id="@+id/rate"
+            <TextView
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dip"
-                android:layout_marginTop="2dip"
-                android:isIndicator="true"
-                android:progressDrawable="@drawable/star"
-                android:stepSize="1.0" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dip"
+                android:textColor="#ff999999" />
 
             <TextView
                 android:id="@+id/line2Text"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:layout_marginLeft="20dip"
-                android:drawableLeft="@drawable/comment"
                 android:drawablePadding="5dip"
                 android:textColor="#ff999999" />
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/price_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dip"
-        android:textColor="@android:color/white" />
 
     <ImageView
         android:id="@+id/delete"

@@ -25,6 +25,7 @@ import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.broadcast.BootCompleteBroadcast;
 import com.maple.beautyjournal.fragment.PersonCenterFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryFragment;
+import com.maple.beautyjournal.fragment.ProductCategoryNewFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
@@ -116,7 +117,7 @@ public class MainActivity extends BaseFragmentActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
 
-                Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryFragment.class.getName(), null);
+                Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryNewFragment.class.getName(), null);
 
                 ft.replace(R.id.content, product_cate);
                 ft.addToBackStack(null);

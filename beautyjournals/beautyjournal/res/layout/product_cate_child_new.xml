@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/product_cate_chlid_background"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/ctv"
+        android:layout_width="wrap_content"
+        android:layout_height="42dip"
+        android:layout_marginLeft="30dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="Adidas阿迪达斯"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+    
+    <TextView android:id="@+id/bottomBorder"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@android:color/white" />
+
+</LinearLayout>
