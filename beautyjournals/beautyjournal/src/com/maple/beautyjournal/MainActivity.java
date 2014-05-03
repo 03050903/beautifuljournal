@@ -25,13 +25,20 @@ import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.broadcast.BootCompleteBroadcast;
 import com.maple.beautyjournal.fragment.PersonCenterFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryFragment;
+import com.maple.beautyjournal.fragment.ProductCategoryNewFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 
@@ -110,7 +117,13 @@ public class MainActivity extends BaseFragmentActivity {
                // home_page.setBackground();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
+
                 Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryFragment.class.getName(), null);
+
+
+               // Fragment product_cate2 = Fragment.instantiate(MainActivity.this, ProductCategoryNewFragment.class.getName(), null);
+
+
                 ft.replace(R.id.content, product_cate);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -149,7 +162,16 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void run() {
 
+
                 String filename = MainActivity.this.getDatabasePath(DatabaseHelper.DB_NAME).getAbsolutePath();
+
+                /**
+                 * android系统sqlite数据库路径，数据库文件：DatabaseHelper.DB_NAME
+                 * add by snail.
+                 * 2014/5/2.
+                 */
+                //String filename = MainActivity.this.getDatabasePath(DatabaseHelper.DB_NAME).getAbsolutePath();
+
                 Log.d("XXX",filename);
 
                 File file = new File(filename);
@@ -313,6 +335,15 @@ public class MainActivity extends BaseFragmentActivity {
         }
     }
 
+
+    /**
+     * 获取商品功效列表
+     * 从网络获取信息，缓存到本地数据库.
+     * add by snail.
+     * 2014/5/2.
+     */
+    //获取作用，这里指某个文章或者商品的作用数据库
+    //内部类，获取function。。。完全不知道是什么东西
     private class GetFunctionTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {

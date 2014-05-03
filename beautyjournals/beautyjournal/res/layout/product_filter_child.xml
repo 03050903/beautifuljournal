@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/ctv"
+        android:layout_width="wrap_content"
+        android:layout_height="42dip"
+        android:layout_marginLeft="30dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="Adidas阿迪达斯"
+        android:textColor="#BABABA"
+        android:textSize="18sp" />
+
+</LinearLayout>

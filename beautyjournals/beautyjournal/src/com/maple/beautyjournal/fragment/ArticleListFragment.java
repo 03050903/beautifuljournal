@@ -9,10 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -68,6 +66,9 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
 
     //private MyPagerAdapter mpAdapter = null;
     private int index;
+    private int width ;
+    float scale ;
+    int paddingSize ;
 
 
     /*
@@ -81,6 +82,14 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         mMenuItemHeight = Utils.dip2px(this.getActivity(), 40);
         Bundle bundle = getArguments();   //获得bundle数据，
         key = bundle.getString("key");
+
+        WindowManager windowManager = (WindowManager) getActivity()
+                .getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+
+        width = display.getWidth();
+        scale = getActivity().getResources().getDisplayMetrics().density;
+        paddingSize = (int)(6*scale+0.5) ;
         /*
         sCategoryMap.put("beauty", new MenuItem(getString(R.string.menu_beauty_item1), 101));
         sCategoryMap.put("skin_protect", new MenuItem(getString(R.string.menu_skin_item1), 201));
@@ -140,9 +149,12 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
             radioButton[4] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_5) ;
             radioButton[4].setText(R.string.menu_beauty_item5);
             //radioGroup.addView(radioButton , 4);
+            paddingSize +=5 ;
+
             radioGroup.removeAllViews();
             TAB_SIZE = 5 ;
             for (int i = 0 ; i < TAB_SIZE ; i++){
+               // radioButton[i].setWidth((width-2*paddingSize)/5);
                 radioGroup.addView(radioButton[i] , i);
                 category[i] = 101+i ;
             }
@@ -154,17 +166,19 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
             radioButton[0].setText(R.string.menu_skin_item1);
             //radioGroup.addView(radioButton , 0);
             radioButton[1] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_2) ;
-            radioButton[1].setText(R.string.menu_skin_item1);
+            radioButton[1].setText(R.string.menu_skin_item2);
             //radioGroup.addView(radioButton , 1);
             radioButton[2] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_3) ;
-            radioButton[2].setText(R.string.menu_skin_item1);
+            radioButton[2].setText(R.string.menu_skin_item3);
            // radioGroup.addView(radioButton , 2);
             radioButton[3] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_4) ;
-            radioButton[3].setText(R.string.menu_skin_item1);
+            radioButton[3].setText(R.string.menu_skin_item4);
            // radioGroup.addView(radioButton , 3);
+
             radioGroup.removeAllViews();
             TAB_SIZE = 4 ;
             for (int i = 0 ; i < TAB_SIZE ; i++){
+                //radioButton[i].setWidth((width-2*paddingSize)/4);
                 radioGroup.addView(radioButton[i] , i);
                 category[i] = 201+i ;
             }
@@ -177,9 +191,12 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
             radioButton[1] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_2) ;
             radioButton[1].setText(R.string.menu_perfume_item2);
             //radioGroup.addView(radioButton , 1);
+
             radioGroup.removeAllViews();
             TAB_SIZE = 2 ;
             for (int i = 0 ; i < TAB_SIZE ; i++){
+                //radioButton[i].setWidth((width-2*paddingSize)/2);
+                //radioButton[i].setPadding(paddingLeft , 0 , paddingLeft , 0);
                 radioGroup.addView(radioButton[i] , i);
                 category[i] = 301+i ;
             }
@@ -191,10 +208,14 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
            // radioGroup.addView(radioButton , 0);
             radioButton[1] = (RadioButton)v.findViewById(R.id.radio_btn_switcher_item_2) ;
             radioButton[1].setText(R.string.menu_brand_item2);
+
+            //height = display.getHeight();
+
             radioGroup.removeAllViews();
 
             TAB_SIZE = 2 ;
             for (int i = 0 ; i < TAB_SIZE ; i++){
+                //radioButton[i].setWidth((width-2*paddingSize)/2);
                 radioGroup.addView(radioButton[i] , i);
                 category[i] = 401+i ;
             }
@@ -414,7 +435,13 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
             for (int k = 0 ; k < TAB_SIZE ; k++){
                 String url = NetUtil.getArticleListUrl2(context, category[k], page, size);
                 Log.d(TAG, "doInBackground, url is " + url);
-                NetUtil util = new HttpClientImplUtil(context, url);
+                NetUtil util = null ;
+                try{
+                util = new HttpClientImplUtil(context, url);
+                }
+                catch(Exception e){
+                    Log.d(TAG , "something wrong") ;
+                }
                 String result = util.doGet();
                 Log.d(TAG, "result is " + result);
 

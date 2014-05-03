@@ -34,6 +34,5 @@ public class GuideActivity extends BaseFragmentActivity  {
         //这个应该是滑动的那个黑点，网上这么说得
         mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
-        
     }
 }
