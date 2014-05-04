@@ -26,12 +26,15 @@ import com.i2mobi.net.NetUtil;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.broadcast.BootCompleteBroadcast;
+import com.maple.beautyjournal.entitiy.Product;
 import com.maple.beautyjournal.fragment.PersonCenterFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryNewFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
+import com.maple.beautyjournal.utils.SettingsUtil;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,7 +45,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class MainActivity extends BaseFragmentActivity {
@@ -58,6 +63,8 @@ public class MainActivity extends BaseFragmentActivity {
     private LinearLayout shoping_city_layout;
     private TextView home_page_text,shoping_city_text;
     private int colorInt,otherColorInt;
+    private TextView shoping_car_amount_pro;
+    List<Product> products = new ArrayList<Product>();
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -129,6 +136,10 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onStart(){
         super.onStart();
+
+        products = SettingsUtil.getProductsInKart(MainActivity.this);
+        shoping_car_amount_pro.setText(""+products.size());
+
         Bundle bundle=getIntent().getExtras();
         if(bundle!=null&&bundle.get("key").equals("gotoproductpage")){
             FragmentManager fm = getSupportFragmentManager();
@@ -160,6 +171,9 @@ public class MainActivity extends BaseFragmentActivity {
         shoping_car=(ImageView)findViewById(R.id.shopingcar);
         home_page_text=(TextView)findViewById(R.id.home_page_text);
         shoping_city_text=(TextView)findViewById(R.id.shoping_city_text);
+        shoping_car_amount_pro=(TextView)findViewById(R.id.shoping_car_amount_pro);
+        products = SettingsUtil.getProductsInKart(MainActivity.this);
+        shoping_car_amount_pro.setText(""+products.size());
         shoping_car.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

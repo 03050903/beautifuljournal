@@ -42,7 +42,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginTop="5dip"
-                            android:src="@drawable/tab_home_2" />
+                            android:background="@drawable/tab_home_2" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginTop="5dip"
-                            android:src="@drawable/tab_store_2" />
+                            android:background="@drawable/tab_store_2" />
 
                         <TextView
                             android:id="@+id/shoping_city_text"
@@ -99,7 +99,7 @@
             android:layout_width="80dip"
             android:layout_height="80dip"
             android:layout_gravity="center"
-            android:src="@drawable/tab_center_logo_2" />
+            android:background="@drawable/tab_center_logo_2" />
     </FrameLayout>
 
 </LinearLayout>
