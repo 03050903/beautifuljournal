@@ -126,6 +126,21 @@ public class MainActivity extends BaseFragmentActivity {
         new GetDataTask().execute();
         getCityMap();
     }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null&&bundle.get("key").equals("gotoproductpage")){
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryFragment.class.getName(), null);
+            // Fragment product_cate2 = Fragment.instantiate(MainActivity.this, ProductCategoryNewFragment.class.getName(), null);
+            ft.replace(R.id.content, product_cate);
+            ft.addToBackStack(null);
+            ft.commit();
+            getSupportFragmentManager().executePendingTransactions();
+        }
+    }
     private void initCompoment(){
 
         searchBar=(ImageView)findViewById(R.id.search);

@@ -178,7 +178,7 @@ public class CheckoutFragment extends BaseFragment implements OnClickListener {
                     bundle.putString("opt", "add");
                     Fragment add_address = Fragment
                             .instantiate(getActivity(), Add_View_AddressFragment.class.getName(), bundle);
-                    ft.add(R.id.realtabcontent, add_address);
+                    ft.add(R.id.chectout_gotopro, add_address);
                     ft.commit();
                     getActivity().getSupportFragmentManager().executePendingTransactions();
                 }

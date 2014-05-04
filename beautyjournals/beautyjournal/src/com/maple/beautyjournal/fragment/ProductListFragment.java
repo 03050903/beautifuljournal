@@ -424,17 +424,19 @@ public class ProductListFragment extends BaseFragment implements
         titleFilter = (TextView) context.findViewById(R.id.title_filter);
         View v = inflater.inflate(R.layout.activity_product_list, container,
                 false);
-        // ImageView back = (ImageView) v.findViewById(R.id.btn_back);
+         ImageView back = (ImageView) v.findViewById(R.id.btn_back);
+
         titleBack.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // 复原标题
-                recoverTitleBar();
-                ProductListFragment.this.getActivity().onBackPressed();
+               recoverTitleBar();
+               ProductListFragment.this.getActivity().onBackPressed();
             }
 
         });
+
         initTab(v);
         initList(v);
         initQueryParameter();
