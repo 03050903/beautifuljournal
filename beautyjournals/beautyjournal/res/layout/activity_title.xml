@@ -61,6 +61,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/eclipse2"/>
+
+                  />
+
                 </FrameLayout>
 
             <TextView
@@ -76,5 +79,4 @@
                 android:text="筛选" />
         </RelativeLayout>
     </LinearLayout>
-
 </RelativeLayout>

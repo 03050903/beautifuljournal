@@ -9,9 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,9 +24,6 @@ import com.basemaple.widget.NoScrollListView;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseActivity;
 import com.maple.beautyjournal.entitiy.Product;
-import com.maple.beautyjournal.fragment.CheckoutFragment;
-import com.maple.beautyjournal.fragment.ProductCategoryFragment;
-import com.maple.beautyjournal.fragment.ShoppingCarFragment;
 import com.maple.beautyjournal.utils.ConstantsHelper;
 import com.maple.beautyjournal.utils.SettingsUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -103,8 +97,6 @@ public class ShopingCarActivity extends BaseActivity {
                     if (mTotalPrice < ConstantsHelper.FREE_SHIPPING_FEE) {
                         new AlertDialog.Builder(context).setMessage(getString(R.string.free_shipping_not_reached))
                                 .setPositiveButton(getString(R.string.continue_shopping), new DialogInterface.OnClickListener() {
-
-
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         gotoProductPage();
@@ -112,8 +104,6 @@ public class ShopingCarActivity extends BaseActivity {
                                 })
                                 .setNegativeButton(getString(R.string.go_checkout), new DialogInterface
                                         .OnClickListener() {
-
-
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                      goCheckOut();
@@ -153,7 +143,6 @@ public class ShopingCarActivity extends BaseActivity {
         intent.putExtras(b);
         startActivity(intent);
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
