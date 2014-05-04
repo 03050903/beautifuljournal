@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
+import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseActivity;
 import com.maple.beautyjournal.dialog.ArticleCommentAtivityDialog;
 import com.maple.beautyjournal.entitiy.ArticleComment;
 import com.maple.beautyjournal.utils.ServerDataUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,6 +43,8 @@ public class ArticleCommentActivity extends BaseActivity {
     private LinearLayout layout_comment;
     private ArticleCommentAdapter articleCommentAdapter;
     private ImageView article_reflesh;
+    private Button article_comment;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=this;
@@ -59,13 +64,18 @@ public class ArticleCommentActivity extends BaseActivity {
         article_reflesh.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                articleCommentList.clear();
-                articleCommentAdapter.notifyDataSetChanged();
+
                 new GetArticleComment().execute();
                 return false;
             }
         });
-
+        article_comment=(Button)findViewById(R.id.commit_article_comment);
+        article_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ArticleCommentActivity.this,ArticleCommentAtivityDialog.class));
+            }
+        });
     }
     public void onBack(View v) {
 
@@ -98,11 +108,13 @@ public class ArticleCommentActivity extends BaseActivity {
             if(convertView==null){
                 convertView= LayoutInflater.from(ArticleCommentActivity.this).inflate(R.layout.article_comment_item, parent, false);
             }
+            ArticleComment articleComment=articleCommentList.get(position);
             ImageView userImage=(ImageView)convertView.findViewById(R.id.userImage_comment);
+            if(!articleComment.userimage.equals(""))
+            ImageLoader.getInstance().displayImage(URLConstant.SERVER_ADDRESS + articleComment.userimage, userImage);
             TextView username=(TextView)convertView.findViewById(R.id.username_comment);
             TextView time=(TextView)convertView.findViewById(R.id.time_comment);
             TextView content=(TextView)convertView.findViewById(R.id.content_comment);
-            ArticleComment articleComment=articleCommentList.get(position);
             username.setText(articleComment.username);
             time.setText(articleComment.time);
             content.setText(articleComment.content);
@@ -115,7 +127,7 @@ public class ArticleCommentActivity extends BaseActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String url = NetUtil.getArticleCommentUrl(context,"11513",10);
+            String url = NetUtil.getArticleCommentUrl(context,articleId,10);
             NetUtil util = new HttpClientImplUtil(context,url);
             String result = util.doGet();
             try {

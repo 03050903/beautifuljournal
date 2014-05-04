@@ -32,6 +32,7 @@
             android:background="@drawable/commit_article"/>
         </LinearLayout>
     <EditText
+        android:id="@+id/comment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

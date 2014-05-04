@@ -93,7 +93,7 @@ public class HttpClientImplUtil extends HttpClientUtil {
             }
             HttpEntity entity = new UrlEncodedFormEntity(parameters, "UTF-8");
             HttpEntity entity2 = new UrlEncodedFormEntity(parameters, "UTF-8");
-            Log.d("HttpUtils", "doPost, url is " + path);
+            Log.d("XXX", "doPost, url is " + path);
             InputStream is = entity2.getContent();
             byte[]data = new byte[is.available()];
             is.read(data);

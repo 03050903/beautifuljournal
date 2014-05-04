@@ -7,15 +7,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:orientation="horizontal"
                 android:background="#ff81a9">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp">
                 <ImageView
 
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dip"
                     android:onClick="onBack"
                     android:layout_width="30dip"
@@ -32,6 +33,7 @@
                     android:textSize="25dip"
                     android:textColor="#ffffff"/>
                 <ImageView
+                    android:layout_marginTop="10dp"
                     android:id="@+id/article_reflesh"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="50dip"

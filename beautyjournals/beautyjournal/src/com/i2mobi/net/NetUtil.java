@@ -309,6 +309,9 @@ public abstract class NetUtil implements URLConstant, HttpConstant {
     public static String getArticleCommentUrl(Context context,String articleId,int size){
         return String.format(ARTICLE_COMMENT,articleId,Integer.toString(size));
     }
+    public static String getArticleToCommentUrl(){
+        return ToArticle_Comment;
+    }
     public static String getHotWords(Context context,int num){
         String appId = getAppID(context);
         return String.format(HotWords_URL, Integer.toString(num));
@@ -418,6 +421,30 @@ public abstract class NetUtil implements URLConstant, HttpConstant {
 
     public static String getFeedbackUrl() {
         return FEEDBACK_URL;
+    }
+    
+    /**
+     * 获取商城分类列表
+     * @return
+     */
+    public static String getCategoryList(){
+    	return CATEGORY_LIST_URL;
+    }
+    
+    /**
+     * 获取品牌列表
+     * @return
+     */
+    public static String getBrandList(){
+    	return BRAND_LIST_URL;
+    }
+    
+    /**
+     * 获取功效列表
+     * @return
+     */
+    public static String getFunctionList(){
+    	return FUNCTION_LIST_URL;
     }
 
     //获得搜索的url

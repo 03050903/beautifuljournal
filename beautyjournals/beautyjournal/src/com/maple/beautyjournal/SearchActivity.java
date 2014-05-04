@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,11 +22,13 @@ import android.widget.TextView;
 
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
+import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseActivity;
 import com.maple.beautyjournal.entitiy.SearchArticleInfo;
 import com.maple.beautyjournal.entitiy.SearchProductInfo;
 import com.maple.beautyjournal.utils.ServerDataUtils;
 import com.maple.beautyjournal.utils.SettingsUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.api.share.Base;
 
 import org.json.JSONArray;
@@ -71,6 +74,7 @@ public class SearchActivity extends BaseActivity {
                 Tag_choose="article";
                 searchArticle.setBackgroundResource(R.drawable.search_rect_background);
                 searchGoods.setBackgroundColor(Color.WHITE);
+                searchDataAdapter.notifyDataSetChanged();
                 if(searchArticleInfos.size()==0)
                 new GetSearchTittle().execute(searchEdit.getText().toString());
                 return false;
@@ -82,6 +86,7 @@ public class SearchActivity extends BaseActivity {
                 Tag_choose="product";
                 searchGoods.setBackgroundResource(R.drawable.search_rect_background);
                 searchArticle.setBackgroundColor(Color.WHITE);
+                searchDataAdapter.notifyDataSetChanged();
                 if(searchProductInfos.size()==0)
                 new GetSearchTittle().execute(searchEdit.getText().toString());
                 return false;
@@ -108,12 +113,20 @@ public class SearchActivity extends BaseActivity {
         searchjListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView item_id=(TextView)view.findViewById(R.id.item_id);
-                Intent intent=new Intent();
-                intent.getStringExtra(item_id.getText().toString());
-                intent.setClass(SearchActivity.this,ArticleDetailActivity.class);
-                startActivity(intent);
-              //  Log.d("XXX",""+position+"---long id"+id+"--"+search_tittle.getText());
+                if(Tag_choose.equals("article")) {
+                    TextView item_id = (TextView) view.findViewById(R.id.item_id);
+                    Intent intent = new Intent();
+                    intent.getStringExtra(item_id.getText().toString());
+                    intent.setClass(SearchActivity.this, ArticleDetailActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    TextView item_id=(TextView)view.findViewById(R.id.item_id);
+                    Intent intent = new Intent();
+                    intent.getStringExtra(item_id.getText().toString());
+                    intent.setClass(SearchActivity.this, ProductDetailActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         Bundle bundle=getIntent().getBundleExtra("key");
@@ -122,6 +135,8 @@ public class SearchActivity extends BaseActivity {
             searchEdit.setText(bundle.get("search").toString());
             new GetSearchTittle().execute(search);
         }
+
+
     }
 
     private class SearchTextWatcher implements TextWatcher{
@@ -139,18 +154,10 @@ public class SearchActivity extends BaseActivity {
         @Override
         public void afterTextChanged(Editable s) {
 
-            if("".equals(s.toString())){
-                searchProductInfos.clear();
-                searchArticleInfos.clear();
-                searchDataAdapter.notifyDataSetChanged();
-            }
-            if(!s.equals("")){
-                searchProductInfos.clear();
-                searchArticleInfos.clear();
-                searchDataAdapter.notifyDataSetChanged();
-                new GetSearchTittle().execute(s.toString());
-            }
-
+            searchProductInfos.clear();
+            searchArticleInfos.clear();
+            searchDataAdapter.notifyDataSetChanged();
+            new GetSearchTittle().execute(s.toString());
         }
 
     }
@@ -161,10 +168,11 @@ public class SearchActivity extends BaseActivity {
 
         @Override
         protected String doInBackground(String... params) {
+            if(params[0].equals("")||params[0]==null)
+                       return "";
             String url = NetUtil.getSearchUrl(context);
             Map<String,String> map=new HashMap<String,String>();
             if(Tag_choose.equals("article")){
-                Log.d("XXX","搜索文章");
                 map.put("keyword",params[0]);
                 map.put("type","ARTICLE");
                 NetUtil util = new HttpClientImplUtil(context,map,url);
@@ -212,6 +220,7 @@ public class SearchActivity extends BaseActivity {
         }
     }
 
+
     private class SearchDataAdapter extends BaseAdapter{
 
         private Context context;
@@ -256,17 +265,18 @@ public class SearchActivity extends BaseActivity {
             }else{
                 convertView = LayoutInflater.from(context).inflate(R.layout.search_product_listview_item, null);
                 if(searchProductInfos.size()>0) {
-
-
-                    
                     ImageView productImage=(ImageView)convertView.findViewById(R.id.product_image_search);
+                    String imageUrl[]=searchProductInfos.get(position).item_image.split(";");
+                   // Log.d("XXX",imageUrl[0]);
+                    ImageLoader.getInstance().displayImage(URLConstant.SERVER_ADDRESS +imageUrl[0],productImage);
                     TextView productTittle=(TextView)convertView.findViewById(R.id.tittle_product);
                     ImageView productStar=(ImageView)convertView.findViewById(R.id.starstar);
                     TextView productPrice=(TextView)convertView.findViewById(R.id.product_price);
                     TextView productComments=(TextView)convertView.findViewById(R.id.product_comments);
                     productTittle.setText(searchProductInfos.get(position).item_name);
                     productPrice.setText(searchProductInfos.get(position).item_price);
-
+                    TextView item_id=(TextView)convertView.findViewById(R.id.item_id);
+                    item_id.setText(searchProductInfos.get(position).item_id);
                 }
                 return convertView;
             }

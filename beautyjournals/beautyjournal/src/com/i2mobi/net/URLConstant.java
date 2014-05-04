@@ -11,6 +11,8 @@ public interface URLConstant {
 
     //AD
     String AD_URL = "index.php?r=app/rec/index/max_cnt/%s/appid/%s/";
+    //评论某文章的借口
+    String ToArticle_Comment="r=app/comment/commentarticle";
     //获取某文章评论的接口
     String ARTICLE_COMMENT="index.php?r=app/comment/getlistbyarticle/pid/%s/size/%s";
     //文章和商品搜索的接口

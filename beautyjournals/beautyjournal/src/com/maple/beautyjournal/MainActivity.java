@@ -25,6 +25,7 @@ import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.broadcast.BootCompleteBroadcast;
 import com.maple.beautyjournal.fragment.PersonCenterFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryFragment;
+import com.maple.beautyjournal.fragment.ProductCategoryNewFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
@@ -55,7 +56,7 @@ public class MainActivity extends BaseFragmentActivity {
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_home_2);
-        initData();// 将数据库复制
+        initData();
         initCompoment();
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
@@ -70,7 +71,7 @@ public class MainActivity extends BaseFragmentActivity {
         bottom = (LinearLayout)findViewById(R.id.bottom) ;
         //HideBottom();
         Intent intent = new Intent(BootCompleteBroadcast.ACTION_APPBOOTCOMPLETED);
-        sendBroadcast(intent);  //发送广播
+        sendBroadcast(intent);
         initOtherData();
 
     }
@@ -112,11 +113,15 @@ public class MainActivity extends BaseFragmentActivity {
         shoping_city.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
+               // home_page.setBackground();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
 
                 Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryFragment.class.getName(), null);
+
+
+               // Fragment product_cate2 = Fragment.instantiate(MainActivity.this, ProductCategoryNewFragment.class.getName(), null);
+
 
                 ft.replace(R.id.content, product_cate);
                 ft.addToBackStack(null);
@@ -150,26 +155,27 @@ public class MainActivity extends BaseFragmentActivity {
         });
     }
 
-
-    //初始化一些数据，主要是数据库beauty.db
     private void initData() {
-        /*
-           这段我没猜错得话应该是讲asset资源里面的beauty.db复制到应用的databases私有文件夹
-         */
+
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
+                String filename = MainActivity.this.getDatabasePath(DatabaseHelper.DB_NAME).getAbsolutePath();
+
                 /**
                  * android系统sqlite数据库路径，数据库文件：DatabaseHelper.DB_NAME
                  * add by snail.
                  * 2014/5/2.
                  */
-                String filename = MainActivity.this.getDatabasePath(DatabaseHelper.DB_NAME).getAbsolutePath();  //不知道得到什么路径
+                //String filename = MainActivity.this.getDatabasePath(DatabaseHelper.DB_NAME).getAbsolutePath();
+
                 Log.d("XXX",filename);
-                ///data/data/com.maple.beautyjournal/databases/beauty.db
+
                 File file = new File(filename);
                 if (file.exists()) {
-                    //如果该文件已经存在则直接返回，说明数据库已经存在了
+
                     return;
                 }
                 file.getParentFile().mkdirs();
@@ -203,7 +209,7 @@ public class MainActivity extends BaseFragmentActivity {
         }).start();
     }
 
-    //退出键
+
     @Override
     public void onBackPressed() {
         if(this.mOnBackPressedListener != null){
@@ -292,20 +298,17 @@ public class MainActivity extends BaseFragmentActivity {
                         cat1Id = keys.next();
                         JSONObject cat1 = info.getJSONObject(cat1Id);
                         cat1Name = cat1.getString("name");
-                        Log.d("XXX","这里是cat1Name-----"+cat1Name);
                         JSONObject cat1Sub = cat1.getJSONObject("sub");
                         Iterator<String> cat2Keys = cat1Sub.keys();
                         while (cat2Keys.hasNext()) {
                             cat2Id = cat2Keys.next();
                             JSONObject cat2 = cat1Sub.getJSONObject(cat2Id);
                             cat2Name = cat2.getString("name");
-                            Log.d("XXX","这里是cat2Name-----"+cat2Name);
                             JSONObject cat2Sub = cat2.getJSONObject("sub");
                             Iterator<String> cat3Keys = cat2Sub.keys();
                             while (cat3Keys.hasNext()) {
                                 cat3Id = cat3Keys.next();
                                 cat3Name = cat2Sub.getString(cat3Id);
-                                Log.d("XXX","这里是cat3Name-----"+cat3Name);
                                 ContentValues cv = new ContentValues();
                                 cv.put(Beauty.Category.CATEGORY_ID, cat1Id);
                                 cv.put(Beauty.Category.NAME, cat1Name);
@@ -313,7 +316,6 @@ public class MainActivity extends BaseFragmentActivity {
                                 cv.put(Beauty.Category.SUB_CATEGORY, cat2Name);
                                 cv.put(Beauty.Category.SUB_SUB_CATEGORY_ID, cat3Id);
                                 cv.put(Beauty.Category.SUB_SUB_CATEGORY, cat3Name);
-                                Log.d("MainActivity", "put categories to db: " + cv.toString());
                                 Uri uri = context.getContentResolver().insert(Beauty.Category.CONTENT_URI, cv);
                                 if (uri != null) {
                                     Log.d("MainActivity", "inserted: " + uri);
@@ -332,14 +334,15 @@ public class MainActivity extends BaseFragmentActivity {
         }
     }
 
+
     /**
      * 获取商品功效列表
      * 从网络获取信息，缓存到本地数据库.
      * add by snail.
      * 2014/5/2.
      */
-    //获取作用，这里指某个文章或者商品的作用数据库
-    //内部类，获取function。。。完全不知道是什么东西
+
+
     private class GetFunctionTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -386,7 +389,7 @@ public class MainActivity extends BaseFragmentActivity {
             return null;
         }
     }
-    //这里是地址，用来收货的因为地址基本不变，所以在保存在assert里面，最后保存在数据库中
+
     private void getCityMap() {
         FileReader fr = null;
         BufferedReader bfr = null;

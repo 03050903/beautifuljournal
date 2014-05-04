@@ -10,6 +10,7 @@
             android:background="@drawable/titlebar_bg"
             android:orientation="horizontal"
             android:id="@+id/toolbar"
+            android:visibility="gone"
             android:layout_alignParentTop="true">
 
         <ImageView
@@ -37,21 +38,20 @@
             android:layout_height="wrap_content"
             android:background="@drawable/product_cate_tab_bg"
             android:orientation="horizontal"
-            android:paddingLeft="30dip"
-            android:paddingRight="30dip"
             android:id="@+id/tab_bar"
-            android:gravity="top"
+            android:gravity="center"
             android:layout_below="@id/toolbar">
 
-        <FrameLayout
+        <LinearLayout
                 android:id="@+id/tab_hot"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3333"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="horizontal">
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
@@ -59,22 +59,26 @@
                     android:textSize="16sp"/>
 
             <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/product_cate_tab_selected"
-                    android:visibility="gone"/>
-        </FrameLayout>
-
-        <FrameLayout
+                    android:layout_width="10dip"
+                    android:layout_height="5dip"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/order_no_selected"/>
+        </LinearLayout>
+        
+        <TextView android:layout_width="1px"
+            android:layout_height="20dip"
+            android:background="#B7B7B7"/>
+        
+         <LinearLayout
                 android:id="@+id/tab_price"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3333"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="horizontal">
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
@@ -82,22 +86,26 @@
                     android:textSize="16sp"/>
 
             <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/product_cate_tab_selected"
-                    android:visibility="gone"/>
-        </FrameLayout>
-
-        <FrameLayout
+                    android:layout_width="10dip"
+                    android:layout_height="5dip"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/order_no_selected"/>
+        </LinearLayout>
+        
+        <TextView android:layout_width="1px"
+            android:layout_height="20dip"
+            android:background="#B7B7B7"/>
+        
+        <LinearLayout
                 android:id="@+id/tab_sell"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3333"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="horizontal">
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
@@ -105,12 +113,11 @@
                     android:textSize="16sp"/>
 
             <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/product_cate_tab_selected"
-                    android:visibility="gone"/>
-        </FrameLayout>
+                    android:layout_width="10dip"
+                    android:layout_height="5dip"
+                    android:layout_marginLeft="10dip"
+                    android:background="@drawable/order_no_selected"/>
+        </LinearLayout>
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
