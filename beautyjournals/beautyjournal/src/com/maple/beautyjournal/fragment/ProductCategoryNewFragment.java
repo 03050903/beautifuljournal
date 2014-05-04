@@ -52,9 +52,7 @@ public class ProductCategoryNewFragment extends BaseFragment {
 	private static final int BRAND = 1; // 品牌
 	private static final String CATEGORY_DATA = "category_list_data"; // 分类数据
 	private static final String BRAND_DATA = "brand_list_data"; // 品牌数据
-	private int currentType = BRAND; // 当前类型
 	private Cache cache = null;
-	private boolean isCache = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,13 +78,16 @@ public class ProductCategoryNewFragment extends BaseFragment {
 	private void initData() {
 		String grandData = cache.getCache(BRAND_DATA);
 		String categoryData = cache.getCache(CATEGORY_DATA);
+		categories.clear();
+		Category cate = new Category();
+		cate.name = "品牌";
+		cate.functionId = "0";
+		categories.add(cate);
 		if (grandData == null || categoryData == null) {
-			isCache = false;
-			setType(BRAND);
-			new GetDataTask().execute();
+			new GetBrandDataTask().execute();
+			new GetCategoryDataTask().execute();
 		} else {
 			try {
-				isCache = true;
 				JSONObject json = new JSONObject(grandData);
 				JSONArray infoArray = new JSONArray(json.getString("info"));
 				dealGrandData(infoArray);
@@ -218,7 +219,7 @@ public class ProductCategoryNewFragment extends BaseFragment {
 			tv.setText(getGroup(groupPosition).name);
 			TextView num = (TextView) layout.findViewById(R.id.num);
 			num.setText("共" + getGroup(groupPosition).subs.size() + "个");
-			//加载对应的图片
+			// 加载对应的图片
 			ImageView pic = (ImageView) layout.findViewById(R.id.pic);
 			pic.setBackgroundResource(getImageResourceID("store_"
 					+ getGroup(groupPosition).functionId));
@@ -234,15 +235,6 @@ public class ProductCategoryNewFragment extends BaseFragment {
 			return true;
 		}
 
-	}
-
-	/**
-	 * 设置当前请求数据类型
-	 * 
-	 * @param type
-	 */
-	private void setType(int type) {
-		currentType = type;
 	}
 
 	/**
@@ -305,10 +297,6 @@ public class ProductCategoryNewFragment extends BaseFragment {
 	 */
 	private void dealGrandData(JSONArray info) {
 		try {
-			categories.clear();
-			Category cate = new Category();
-			cate.name = "品牌";
-			cate.functionId = "0";
 			String start = "0"; // 头拼音字母
 			String pinyin = "";
 			for (int i = 0; i < info.length(); i++) {
@@ -321,19 +309,13 @@ public class ProductCategoryNewFragment extends BaseFragment {
 					fakeCate.name = "·" + start.toUpperCase();
 					fakeCate.subId = "-1";
 					fakeCate.enabled = false;
-					cate.subs.add(fakeCate);
+					categories.get(0).subs.add(fakeCate);
 				}
 				Category.SubCategory subCate = new Category.SubCategory();
 				subCate.name = jsonObject.getString("name");
 				subCate.subId = jsonObject.getString("id");
 				subCate.type = BRAND;
-				cate.subs.add(subCate);
-			}
-			categories.add(cate);
-			// 先进行品牌的数据请求，再进行分类的请求，保证品牌在前
-			if (isCache == false) {
-				setType(CATEGORY);
-				new GetDataTask().execute();
+				categories.get(0).subs.add(subCate);
 			}
 		} catch (Exception e) {
 			errorMsg = e.getLocalizedMessage();
@@ -346,21 +328,12 @@ public class ProductCategoryNewFragment extends BaseFragment {
 	 * @author enterli
 	 * 
 	 */
-	private class GetDataTask extends AsyncTask<Void, Void, Void> {
+	private class GetBrandDataTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			Context context = getActivity();
-			String url = ""; // getBrandList();
-			switch (currentType) {
-			case CATEGORY:
-				url = NetUtil.getCategoryList();
-				break;
-			case BRAND:
-				url = NetUtil.getBrandList();
-				break;
-			}
-
+			String url = NetUtil.getBrandList();
 			Log.d(TAG, "doInBackground, url is " + url);
 			NetUtil util = new HttpClientImplUtil(context, url);
 			String result = util.doGet();
@@ -368,21 +341,57 @@ public class ProductCategoryNewFragment extends BaseFragment {
 			try {
 				JSONObject json = new JSONObject(result);
 				if (ServerDataUtils.isTaskSuccess(json)) {
-					switch (currentType) {
-					case CATEGORY:
-						// 写缓存
-						cache.setCache(CATEGORY_DATA, result);
-						JSONObject info = json.getJSONObject("info");
-						dealCategoryData(info);
-						break;
-					case BRAND:
-						// 写缓存
-						cache.setCache(BRAND_DATA, result);
-						JSONArray infoArray = new JSONArray(
-								json.getString("info"));
-						dealGrandData(infoArray);
-						break;
-					}
+					cache.setCache(BRAND_DATA, result);
+					JSONArray infoArray = new JSONArray(json.getString("info"));
+					dealGrandData(infoArray);
+				} else {
+					errorMsg = ServerDataUtils.getErrorMessage(json);
+				}
+			} catch (Exception e) {
+				errorMsg = e.getLocalizedMessage();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			dismissProgress();
+			adapter.notifyDataSetChanged();
+			/*
+			 * if (!TextUtils.isEmpty(errorMsg)) { Toast.makeText(getActivity(),
+			 * errorMsg, Toast.LENGTH_LONG).show(); errorMsg = null; }
+			 * list.onRefreshComplete(); if (offset == lastOffset) {
+			 * list.setMode(PullToRefreshBase.Mode.DISABLED); }
+			 */
+			super.onPostExecute(aVoid);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dismissProgress();
+			if (categories.size() == 0) {
+				showProgress();
+			}
+		}
+	}
+
+	private class GetCategoryDataTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			Context context = getActivity();
+			String url = NetUtil.getCategoryList();
+			Log.d(TAG, "doInBackground, url is " + url);
+			NetUtil util = new HttpClientImplUtil(context, url);
+			String result = util.doGet();
+			Log.d(TAG, "result is " + result);
+			try {
+				JSONObject json = new JSONObject(result);
+				if (ServerDataUtils.isTaskSuccess(json)) {
+					cache.setCache(CATEGORY_DATA, result);
+					JSONObject info = json.getJSONObject("info");
+					dealCategoryData(info);
 				} else {
 					errorMsg = ServerDataUtils.getErrorMessage(json);
 				}

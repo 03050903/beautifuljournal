@@ -1,5 +1,6 @@
 package com.maple.beautyjournal.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,10 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.*;
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
 import com.i2mobi.net.URLConstant;
@@ -49,6 +47,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     private List<List<Article>> articles = new ArrayList<List<Article>>();
     private ViewPager viewPager;
     private TextView mArticleListMessageView;
+    private Activity parentActivity ;
     TextView mCateSwitcher;
     String key;
     //PagerAdapter adapter ;
@@ -59,6 +58,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     private FragmentPagerAdapter mAdapter;
     // 页卡内容
     private ViewPager mPager;
+    View v = null ;
     // Tab页面列表
     private List<View> listViews;
     // 当前页卡编号
@@ -235,7 +235,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        View v = inflater.inflate(R.layout.activity_article_list, container, false);
+        v = inflater.inflate(R.layout.activity_article_list, container, false);
         InitView(v , container , savedInstanceState);
         pageCount = (TextView) v.findViewById(R.id.page_count);
 
@@ -491,7 +491,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            dismissProgress();
+
             if (!TextUtils.isEmpty(errorMsg)) {
             	//mArticleListMessageView.setVisibility(View.VISIBLE);
                 //mArticleListMessageView.setText(errorMsg);
@@ -501,13 +501,16 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
                // mArticleListMessageView.setVisibility(View.VISIBLE);
                // mArticleListMessageView.setText(R.string.empty_article_list);
             } else {
+                adapter.notifyDataSetChanged();
             	viewPager.setCurrentItem(0);
             	viewPager.setVisibility(View.VISIBLE);
-                adapter.notifyDataSetChanged();
+
             }
+            adapter.notifyDataSetChanged();
             viewPager.setCurrentItem(0);
             viewPager.setVisibility(View.VISIBLE);
-            adapter.notifyDataSetChanged();
+
+            dismissProgress();
             super.onPostExecute(aVoid);
         }
 
@@ -517,7 +520,10 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         	viewPager.setVisibility(View.GONE);
             mArticleListMessageView.setVisibility(View.GONE);
             dismissProgress();
+            //RelativeLayout relativeLayout = (RelativeLayout)parentActivity.findViewById(R.id.parent_content) ;
             showProgress();
+            //showProgressWithRoot(relativeLayout , null);
+
         }
     }
 
@@ -595,4 +601,9 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
 
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        parentActivity = activity ;
+        super.onAttach(activity);
+    }
 }
