@@ -98,4 +98,5 @@ public class ArticleDetailTwoActivity extends SherlockFragmentActivity{
         }
         return false;
     }
+
    }

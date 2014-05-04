@@ -30,7 +30,7 @@ import java.util.Map;
 
 public abstract class NetUtil implements URLConstant, HttpConstant {
     protected String path;
-    protected Map<String, String> map;
+    protected Map<String, String> map = null;
     protected String filePath;
     protected String cookie;
     protected Context context;
