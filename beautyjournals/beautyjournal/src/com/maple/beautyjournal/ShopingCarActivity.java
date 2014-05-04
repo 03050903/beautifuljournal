@@ -147,8 +147,9 @@ public class ShopingCarActivity extends BaseActivity {
         getActivity().getSupportFragmentManager().executePendingTransactions();
       */
     }
-/*
+
     private void goCheckOut() {
+        /*
         FragmentManager fm = context.getSupportFragmentManager();
         SettingsUtil.saveProductList(context, products);
         FragmentTransaction ft = fm.beginTransaction();
@@ -160,12 +161,14 @@ public class ShopingCarActivity extends BaseActivity {
         ft.addToBackStack(null);
         ft.commit();
         getActivity().getSupportFragmentManager().executePendingTransactions();
+
+        */
     }
-*/
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            //goCheckOut();
+            goCheckOut();
         }
     }
 

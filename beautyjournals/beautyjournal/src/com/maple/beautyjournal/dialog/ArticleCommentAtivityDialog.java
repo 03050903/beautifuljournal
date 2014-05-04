@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -43,13 +44,14 @@ public class ArticleCommentAtivityDialog extends BaseFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_article_comment_dia);
         context=this;
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
             bar.hide();
         }
-
+        articleId=getIntent().getStringExtra("articleId");
         initImageView();
     }
 
@@ -70,8 +72,7 @@ public class ArticleCommentAtivityDialog extends BaseFragmentActivity {
                     new GetArticleComment().execute(articleId, "游客"
                             , content, star);
                 }
-
-
+                finish();
                 return false;
             }
         });
@@ -91,6 +92,7 @@ public class ArticleCommentAtivityDialog extends BaseFragmentActivity {
             comment.put("username",params[1]);
             comment.put("content",params[2]);
             comment.put("star",params[3]);
+            Log.d("XXX",params[0]+params[1]+params[2]+params[3]);
             NetUtil util = new HttpClientImplUtil(context,comment,url);
             String result=util.doPost();
             Log.d("XXX", result);

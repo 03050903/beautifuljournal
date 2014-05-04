@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -72,8 +73,8 @@ public class SearchActivity extends BaseActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Tag_choose="article";
-                searchArticle.setBackgroundResource(R.drawable.search_rect_background);
-                searchGoods.setBackgroundColor(Color.WHITE);
+                searchArticle.setBackgroundResource(R.drawable.left_article_2);
+                searchGoods.setBackgroundResource(R.drawable.right_product_2);
                 searchDataAdapter.notifyDataSetChanged();
                 if(searchArticleInfos.size()==0)
                 new GetSearchTittle().execute(searchEdit.getText().toString());
@@ -84,8 +85,8 @@ public class SearchActivity extends BaseActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Tag_choose="product";
-                searchGoods.setBackgroundResource(R.drawable.search_rect_background);
-                searchArticle.setBackgroundColor(Color.WHITE);
+                searchGoods.setBackgroundResource(R.drawable.right_product_choose);
+                searchArticle.setBackgroundResource(R.drawable.left_article_not);
                 searchDataAdapter.notifyDataSetChanged();
                 if(searchProductInfos.size()==0)
                 new GetSearchTittle().execute(searchEdit.getText().toString());
@@ -110,20 +111,40 @@ public class SearchActivity extends BaseActivity {
         searchDataAdapter=new SearchDataAdapter(context);
         searchjListView=(ListView)findViewById(R.id.choose_listview);
         searchjListView.setAdapter(searchDataAdapter);
+        searchjListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                switch (scrollState) {
+                    // 当不滚动时
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                        // 判断滚动到底部
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+                            adapterSize+=10;
+                            searchDataAdapter.notifyDataSetChanged();
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
         searchjListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(Tag_choose.equals("article")) {
                     TextView item_id = (TextView) view.findViewById(R.id.item_id);
                     Intent intent = new Intent();
-                    intent.getStringExtra(item_id.getText().toString());
+                    intent.putExtra(ArticleDetailActivity.ARTICLE_ID_EXTRA,item_id.getText().toString());
                     intent.setClass(SearchActivity.this, ArticleDetailActivity.class);
                     startActivity(intent);
                 }
                 else{
                     TextView item_id=(TextView)view.findViewById(R.id.item_id);
                     Intent intent = new Intent();
-                    intent.getStringExtra(item_id.getText().toString());
+                    intent.putExtra("product_id",item_id.getText().toString());
                     intent.setClass(SearchActivity.this, ProductDetailActivity.class);
                     startActivity(intent);
                 }
@@ -166,6 +187,11 @@ public class SearchActivity extends BaseActivity {
 
     private class GetSearchTittle extends AsyncTask<String, Integer, String>{
 
+        @Override
+        protected void onPreExecute(){
+            showProgress();
+            Log.d("XXX","加载的window");
+        }
         @Override
         protected String doInBackground(String... params) {
             if(params[0].equals("")||params[0]==null)
@@ -215,12 +241,13 @@ public class SearchActivity extends BaseActivity {
         }
         @Override
         public void onPostExecute(String result){
-
+            Log.d("XXX","加载结束");
+            dismissProgress();
             searchDataAdapter.notifyDataSetChanged();
         }
     }
 
-
+    private int adapterSize=10;
     private class SearchDataAdapter extends BaseAdapter{
 
         private Context context;
@@ -230,9 +257,9 @@ public class SearchActivity extends BaseActivity {
         @Override
         public int getCount() {
             if(Tag_choose.equals("article")){
-             return   searchArticleInfos.size();
+             return   adapterSize<searchArticleInfos.size()?adapterSize:searchArticleInfos.size();
             }else
-                return searchProductInfos.size();
+                return adapterSize<searchProductInfos.size()?adapterSize:searchProductInfos.size();
         }
 
         @Override
