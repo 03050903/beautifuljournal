@@ -30,6 +30,7 @@
                     android:layout_marginRight="40dip" >
 
                     <LinearLayout
+                        android:id="@+id/home_page_layout"
                         android:layout_width="40dip"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -48,6 +49,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
+                            android:id="@+id/home_page_text"
+                            android:textColor="#ff81A9"
                             android:text="首页" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -64,6 +67,7 @@
                     android:layout_marginLeft="40dip" >
 
                     <LinearLayout
+                        android:id="@+id/shoping_city_layout"
                         android:layout_width="40dip"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -78,10 +82,12 @@
                             android:src="@drawable/tab_store_2" />
 
                         <TextView
+                            android:id="@+id/shoping_city_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
+                            android:textColor="#cccccc"
                             android:text="商城" />
                     </LinearLayout>
                 </RelativeLayout>
