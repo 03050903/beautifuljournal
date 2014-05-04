@@ -106,11 +106,11 @@ public class ShopingCarActivity extends BaseActivity {
                                         .OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-//                                     goCheckOut();
+                                     goCheckOut();
                                     }
                                 }).show();
                     } else {
-//                       goCheckOut();
+                       goCheckOut();
                     }
 
                 } else {
@@ -125,37 +125,28 @@ public class ShopingCarActivity extends BaseActivity {
       onBackPressed();
   }
     private void gotoProductPage() {
-        /*
-        FragmentManager fm = context.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment product_cate = Fragment
-                .instantiate(getActivity(), ProductCategoryFragment.class.getName(), null);
 
-        ft.replace(R.id.realtabcontent, product_cate);
-        ft.addToBackStack(null);
-        ft.commit();
-        getActivity().getSupportFragmentManager().executePendingTransactions();
-      */
+        Bundle b=new Bundle();
+        b.putString("key","  gotoproductpage");
+        Intent intent=new Intent(ShopingCarActivity.this,MainActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
     }
-/*
+
     private void goCheckOut() {
-        FragmentManager fm = context.getSupportFragmentManager();
         SettingsUtil.saveProductList(context, products);
-        FragmentTransaction ft = fm.beginTransaction();
         String totalPrice = getTotalPrice();
-        Bundle b = new Bundle();
+        Bundle b=new Bundle();
         b.putString("total_price", totalPrice);
-        Fragment checkout = Fragment.instantiate(getActivity(), CheckoutFragment.class.getName(), b);
-        ft.replace(R.id.realtabcontent, checkout);
-        ft.addToBackStack(null);
-        ft.commit();
-        getActivity().getSupportFragmentManager().executePendingTransactions();
+        b.putString("key","CheckoutFragment");
+        Intent intent=new Intent(ShopingCarActivity.this,TestActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
     }
-//*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            //goCheckOut();
+            goCheckOut();
         }
     }
 

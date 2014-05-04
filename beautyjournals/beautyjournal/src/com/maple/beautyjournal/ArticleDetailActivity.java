@@ -81,6 +81,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         likeView = (TextView) findViewById(R.id.like);
         likeView.setOnClickListener(this);
         titleView = (TextView) findViewById(R.id.title);
+        Log.d("XXX","这里是文章详情");
         itemId = getIntent().getStringExtra(ARTICLE_ID_EXTRA);
         adapter = new RelatedProductAdapter();
         mRelatedProGallery.setAdapter(adapter);
@@ -204,6 +205,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             Log.d(TAG, "doInBackground, url is " + url);
             NetUtil util = new HttpClientImplUtil(context, url);
             String result = util.doGet();
+            Log.d("XXX","result----"+result);
             try {
                 JSONObject json = new JSONObject(result);
                 if (ServerDataUtils.isTaskSuccess(json)) {

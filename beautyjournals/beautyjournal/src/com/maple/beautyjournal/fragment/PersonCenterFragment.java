@@ -250,7 +250,7 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
                 Fragment address_manager = Fragment
                         .instantiate(PersonCenterFragment.this.getActivity(), AddressListFragment.class.getName(), null);
 
-                ft.replace(R.id.realtabcontent, address_manager);
+                ft.replace(R.id.content, address_manager);
                 ft.addToBackStack(null);
                 ft.commit();
                 PersonCenterFragment.this.getActivity().getSupportFragmentManager().executePendingTransactions();
