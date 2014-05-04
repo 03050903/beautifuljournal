@@ -52,7 +52,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/cart_icon_2" />
                 <ImageView
-                    android:id="@+id/shopingcar_red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/eclipse2"/>
