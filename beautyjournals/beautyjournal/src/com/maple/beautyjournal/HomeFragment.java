@@ -77,12 +77,13 @@ public class HomeFragment extends Fragment {
                 for (int i = 0; i < array.length(); i++) {
                     localhotWords.add(array.get(i).toString());
                 }
+                hotWords=localhotWords;
             } catch (Exception e) {
 
             }
         }
         Log.d("XXX","-------local"+localhotWords.toString());
-        hotWordsAdapter=new HotWordsAdapter(context,localhotWords);
+        hotWordsAdapter=new HotWordsAdapter(context);
         hotWordsGridView.setAdapter(hotWordsAdapter);
         hotWordsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,13 +98,13 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    private List<String> hotWords=new ArrayList<String>();
     private class HotWordsAdapter extends BaseAdapter{
 
-        private List<String> hotWords=new ArrayList<String>();
         private LayoutInflater inflater;
-        public HotWordsAdapter(Context context,List<String> hotWords){
+        public HotWordsAdapter(Context context){
+
             inflater= LayoutInflater.from(context);
-            this.hotWords=hotWords;
         }
         @Override
         public int getCount() {
@@ -301,12 +302,12 @@ public class HomeFragment extends Fragment {
             try {
                 JSONObject obj = new JSONObject(result);
                 if (ServerDataUtils.isTaskSuccess(obj)) {
-                    remotehotWords.clear();
+                    hotWords.clear();
                     JSONArray array = obj.getJSONArray("info");
                     Log.d("XXX",array.toString());
                     SettingsUtil.saveHotWordsCache(context, array.toString());   //保存在缓存中
                     for (int i = 0; i < array.length(); i++) {
-                        remotehotWords.add(array.get(i).toString());
+                        hotWords.add(array.get(i).toString());
                     }
                 }
             } catch (Exception e) {
@@ -317,7 +318,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean result) {
-
+            hotWordsAdapter.notifyDataSetChanged();
         }
     }
 

@@ -258,6 +258,9 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         OnArticleItemClickListener onArticleItemClickListener = new OnArticleItemClickListener();
         adapter.setOnArticleItemClickListener(onArticleItemClickListener);
         new GetDataTask().execute();
+        GetDataTask getDataTask = new GetDataTask() ;
+        getDataTask.execute() ;
+        //getDataTask.cancel();
         return v;
     }
 

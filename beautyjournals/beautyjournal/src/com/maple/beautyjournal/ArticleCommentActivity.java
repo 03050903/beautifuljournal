@@ -64,7 +64,9 @@ public class ArticleCommentActivity extends BaseActivity {
         article_reflesh.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
+                articleCommentList.clear();
+                if(articleCommentAdapter!=null)
+                articleCommentAdapter.notifyDataSetChanged();
                 new GetArticleComment().execute();
                 return false;
             }
@@ -73,7 +75,9 @@ public class ArticleCommentActivity extends BaseActivity {
         article_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ArticleCommentActivity.this,ArticleCommentAtivityDialog.class));
+                Intent intent=new Intent(ArticleCommentActivity.this,ArticleCommentAtivityDialog.class);
+                intent.putExtra("articleId",articleId);
+                startActivity(intent);
             }
         });
     }
@@ -83,7 +87,9 @@ public class ArticleCommentActivity extends BaseActivity {
     }
 
     public void editComment(View v){
-        startActivity(new Intent(ArticleCommentActivity.this,ArticleCommentAtivityDialog.class));
+        Intent intent=new Intent(ArticleCommentActivity.this,ArticleCommentAtivityDialog.class);
+        intent.putExtra("articleId",articleId);
+        startActivity(intent);
     }
 
     private class ArticleCommentAdapter extends BaseAdapter{
@@ -116,7 +122,10 @@ public class ArticleCommentActivity extends BaseActivity {
             TextView time=(TextView)convertView.findViewById(R.id.time_comment);
             TextView content=(TextView)convertView.findViewById(R.id.content_comment);
             username.setText(articleComment.username);
-            time.setText(articleComment.time);
+            Long timestamp = Long.parseLong(articleComment.time)*1000;
+            String formats="yyyy-MM-dd";
+            String date = new java.text.SimpleDateFormat(formats).format(new java.util.Date(timestamp));
+            time.setText(date);
             content.setText(articleComment.content);
             return convertView;
         }
@@ -125,6 +134,11 @@ public class ArticleCommentActivity extends BaseActivity {
 
     private class GetArticleComment extends AsyncTask<String,Void,String> {
 
+        @Override
+        protected void onPreExecute(){
+            showProgress();
+            Log.d("XXX","加载的window");
+        }
         @Override
         protected String doInBackground(String... params) {
             String url = NetUtil.getArticleCommentUrl(context,articleId,10);
@@ -159,7 +173,9 @@ public class ArticleCommentActivity extends BaseActivity {
                 nocomment.setVisibility(View.GONE);
                 articleCommentAdapter=new ArticleCommentAdapter();
                 commentListView.setAdapter(articleCommentAdapter);
+
             }
+            dismissProgress();
         }
 
     }

@@ -40,16 +40,33 @@
                 android:text="美人记"
                 android:textColor="#ffffff"
                 android:textSize="27dp" />
-
-            <ImageView
-                android:id="@+id/shopingcar"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:paddingRight="15dp"
-                android:src="@drawable/cart_icon_2" />
-            
+                android:layout_centerVertical="true"
+                >
+                <ImageView
+                    android:id="@+id/shopingcar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cart_icon_2"
+                      />
+                <TextView
+                    android:id="@+id/shoping_car_amount_pro"
+                    android:text="3"
+                    android:textColor="#cccccc"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/eclipse2"/>
+
+                  />
+
+                </FrameLayout>
+
             <TextView
                 android:id="@+id/title_filter"
                 android:layout_width="wrap_content"
@@ -63,5 +80,4 @@
                 android:text="筛选" />
         </RelativeLayout>
     </LinearLayout>
-
 </RelativeLayout>

@@ -17,22 +17,27 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.broadcast.BootCompleteBroadcast;
+import com.maple.beautyjournal.entitiy.Product;
 import com.maple.beautyjournal.fragment.PersonCenterFragment;
 import com.maple.beautyjournal.fragment.ProductCategoryFragment;
 import com.maple.beautyjournal.provider.Beauty;
 import com.maple.beautyjournal.provider.DatabaseHelper;
 import com.maple.beautyjournal.utils.ServerDataUtils;
+import com.maple.beautyjournal.utils.SettingsUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class MainActivity extends BaseFragmentActivity {
@@ -44,7 +49,12 @@ public class MainActivity extends BaseFragmentActivity {
     private ImageView person_center;
     private ImageView shoping_car;
     private LinearLayout bottom ;
-
+    private LinearLayout home_page_layout;
+    private LinearLayout shoping_city_layout;
+    private TextView home_page_text,shoping_city_text;
+    private int colorInt,otherColorInt;
+    private TextView shoping_car_amount_pro;
+    List<Product> products = new ArrayList<Product>();
     @Override
     public void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -66,7 +76,41 @@ public class MainActivity extends BaseFragmentActivity {
         Intent intent = new Intent(BootCompleteBroadcast.ACTION_APPBOOTCOMPLETED);
         sendBroadcast(intent);
         initOtherData();
-
+        home_page_layout=(LinearLayout)findViewById(R.id.home_page_layout);
+        shoping_city_layout=(LinearLayout)findViewById(R.id.shoping_city_layout);
+        home_page_layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                home_page.setBackgroundResource(R.drawable.tab_home_2);
+                home_page_text.setTextColor(colorInt);
+                shoping_city.setBackgroundResource(R.drawable.tab_store_2);
+                shoping_city_text.setTextColor(otherColorInt);
+                fragmentManager=getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                HomeFragment homeFragment=new HomeFragment();
+                transaction.replace(R.id.content,homeFragment);
+                transaction.commit();
+                return false;
+            }
+        });
+        shoping_city_layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                home_page.setBackgroundResource(R.drawable.home_page_2);
+                home_page_text.setTextColor(otherColorInt);
+                shoping_city.setBackgroundResource(R.drawable.shoping_city_2);
+                shoping_city_text.setTextColor(colorInt);
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryFragment.class.getName(), null);
+                // Fragment product_cate2 = Fragment.instantiate(MainActivity.this, ProductCategoryNewFragment.class.getName(), null);
+                ft.replace(R.id.content, product_cate);
+                ft.addToBackStack(null);
+                ft.commit();
+                getSupportFragmentManager().executePendingTransactions();
+                return false;
+            }
+        });
     }
 
     public void HideBottom(){
@@ -78,6 +122,25 @@ public class MainActivity extends BaseFragmentActivity {
         new  GetFunctionTask().execute();
         new GetDataTask().execute();
         getCityMap();
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        products = SettingsUtil.getProductsInKart(MainActivity.this);
+        shoping_car_amount_pro.setText(""+products.size());
+
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null&&bundle.get("key").equals("gotoproductpage")){
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryFragment.class.getName(), null);
+            // Fragment product_cate2 = Fragment.instantiate(MainActivity.this, ProductCategoryNewFragment.class.getName(), null);
+            ft.replace(R.id.content, product_cate);
+            ft.addToBackStack(null);
+            ft.commit();
+            getSupportFragmentManager().executePendingTransactions();
+        }
     }
     private void initCompoment(){
 
@@ -96,6 +159,11 @@ public class MainActivity extends BaseFragmentActivity {
         shoping_city=(ImageView)findViewById(R.id.shoping_city);
         person_center=(ImageView)findViewById(R.id.person_center);
         shoping_car=(ImageView)findViewById(R.id.shopingcar);
+        home_page_text=(TextView)findViewById(R.id.home_page_text);
+        shoping_city_text=(TextView)findViewById(R.id.shoping_city_text);
+        shoping_car_amount_pro=(TextView)findViewById(R.id.shoping_car_amount_pro);
+        products = SettingsUtil.getProductsInKart(MainActivity.this);
+        shoping_car_amount_pro.setText(""+products.size());
         shoping_car.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -103,37 +171,8 @@ public class MainActivity extends BaseFragmentActivity {
                 return false;
             }
         });
-        shoping_city.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-               // home_page.setBackground();
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-
-                Fragment product_cate = Fragment.instantiate(MainActivity.this, ProductCategoryFragment.class.getName(), null);
 
 
-               // Fragment product_cate2 = Fragment.instantiate(MainActivity.this, ProductCategoryNewFragment.class.getName(), null);
-
-
-                ft.replace(R.id.content, product_cate);
-                ft.addToBackStack(null);
-                ft.commit();
-                getSupportFragmentManager().executePendingTransactions();
-                return false;
-            }
-        });
-        home_page.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                fragmentManager=getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                HomeFragment homeFragment=new HomeFragment();
-                transaction.replace(R.id.content,homeFragment);
-                transaction.commit();
-                return false;
-            }
-        });
         person_center.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -146,6 +185,9 @@ public class MainActivity extends BaseFragmentActivity {
                 return false;
             }
         });
+
+        colorInt=home_page_text.getCurrentTextColor();
+        otherColorInt=shoping_city_text.getCurrentHintTextColor();
     }
 
     private void initData() {

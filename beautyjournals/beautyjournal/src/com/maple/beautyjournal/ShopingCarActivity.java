@@ -9,9 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,9 +24,6 @@ import com.basemaple.widget.NoScrollListView;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.base.BaseActivity;
 import com.maple.beautyjournal.entitiy.Product;
-import com.maple.beautyjournal.fragment.CheckoutFragment;
-import com.maple.beautyjournal.fragment.ProductCategoryFragment;
-import com.maple.beautyjournal.fragment.ShoppingCarFragment;
 import com.maple.beautyjournal.utils.ConstantsHelper;
 import com.maple.beautyjournal.utils.SettingsUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -103,8 +97,6 @@ public class ShopingCarActivity extends BaseActivity {
                     if (mTotalPrice < ConstantsHelper.FREE_SHIPPING_FEE) {
                         new AlertDialog.Builder(context).setMessage(getString(R.string.free_shipping_not_reached))
                                 .setPositiveButton(getString(R.string.continue_shopping), new DialogInterface.OnClickListener() {
-
-
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         gotoProductPage();
@@ -112,15 +104,13 @@ public class ShopingCarActivity extends BaseActivity {
                                 })
                                 .setNegativeButton(getString(R.string.go_checkout), new DialogInterface
                                         .OnClickListener() {
-
-
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                   //  goCheckOut();
+                                     goCheckOut();
                                     }
                                 }).show();
                     } else {
-                       // goCheckOut();
+                       goCheckOut();
                     }
 
                 } else {
@@ -135,37 +125,28 @@ public class ShopingCarActivity extends BaseActivity {
       onBackPressed();
   }
     private void gotoProductPage() {
-        /*
-        FragmentManager fm = context.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment product_cate = Fragment
-                .instantiate(getActivity(), ProductCategoryFragment.class.getName(), null);
 
-        ft.replace(R.id.realtabcontent, product_cate);
-        ft.addToBackStack(null);
-        ft.commit();
-        getActivity().getSupportFragmentManager().executePendingTransactions();
-      */
+        Bundle b=new Bundle();
+        b.putString("key","  gotoproductpage");
+        Intent intent=new Intent(ShopingCarActivity.this,MainActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
     }
-/*
+
     private void goCheckOut() {
-        FragmentManager fm = context.getSupportFragmentManager();
         SettingsUtil.saveProductList(context, products);
-        FragmentTransaction ft = fm.beginTransaction();
         String totalPrice = getTotalPrice();
-        Bundle b = new Bundle();
+        Bundle b=new Bundle();
         b.putString("total_price", totalPrice);
-        Fragment checkout = Fragment.instantiate(getActivity(), CheckoutFragment.class.getName(), b);
-        ft.replace(R.id.realtabcontent, checkout);
-        ft.addToBackStack(null);
-        ft.commit();
-        getActivity().getSupportFragmentManager().executePendingTransactions();
+        b.putString("key","CheckoutFragment");
+        Intent intent=new Intent(ShopingCarActivity.this,TestActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
     }
-*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            //goCheckOut();
+            goCheckOut();
         }
     }
 

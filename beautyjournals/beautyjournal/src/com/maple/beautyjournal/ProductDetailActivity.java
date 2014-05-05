@@ -80,9 +80,11 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
         Intent intent = getIntent();
         if (intent.hasExtra(PRODUCT_ID)) {
             id = intent.getStringExtra(PRODUCT_ID);
+            Log.d("XXX",id);
         }
         context = this;
         initViews();
+        Log.d("XXX","启动线程");
         new GetContentTask().execute();
     }
 
@@ -230,7 +232,7 @@ public class ProductDetailActivity extends BaseActivity implements View.OnClickL
             String url = NetUtil.getProductDetailUrl(context, id);
             NetUtil util = new HttpClientImplUtil(context, url);
             String result = util.doGet();
-            Log.d(TAG, "doInBackground: " + result);
+            Log.d("XXX", "doInBackground: " + result);
             String ret;
             try {
                 JSONObject json = new JSONObject(result);

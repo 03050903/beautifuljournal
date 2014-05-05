@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:background="#ff81A9"
             android:orientation="horizontal" >
 
@@ -24,7 +24,7 @@
                 android:clickable="true"
                 android:onClick="onBack"
                 android:scaleType="center"
-                android:src="@drawable/button_back" />
+                android:src="@drawable/left_arrow_2" />
 
             <TextView
                 android:layout_width="wrap_content"
