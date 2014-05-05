@@ -5,40 +5,32 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.actionbarsherlock.app.ActionBar;
+import android.widget.*;
 import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
-import com.maple.beautyjournal.base.BaseFragmentActivity;
 import com.maple.beautyjournal.entitiy.Recommend;
+import com.maple.beautyjournal.fragment.ArticleListFragment;
 import com.maple.beautyjournal.utils.ServerDataUtils;
 import com.maple.beautyjournal.utils.SettingsUtil;
 import com.maple.beautyjournal.widget.RoundAngleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.viewpagerindicator.CirclePageIndicator;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by mosl on 14-4-10.
@@ -55,11 +47,17 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> localhotWords=new ArrayList<String>();
     private ArrayList<String> remotehotWords=new ArrayList<String>();
     private HotWordsAdapter hotWordsAdapter;
+    LinearLayout bottomLinearLayout = null ;
+    RelativeLayout titleLayout = null ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         context=getActivity();
         View view = inflater.inflate(R.layout.activity_home_content,container,false);
+        bottomLinearLayout = (LinearLayout)getActivity().findViewById(R.id.bottom) ;
+        titleLayout = (RelativeLayout)getActivity().findViewById(R.id.title_layout) ;
+        getActivity().findViewById(R.id.bottom).setVisibility(View.VISIBLE);
+        getActivity().findViewById(R.id.title_layout).setVisibility(View.VISIBLE);
         initAds();
         initHotWords(view);
         initAdGallery(view);
@@ -145,11 +143,22 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key", "btn_beauty");    //传递key=beauty
+                //bundle.putString("key", "btn_beauty");    //传递key=beauty
                 Intent intent=new Intent();
                 intent.putExtras(bundle);
-                intent.setClass(context,ArticleDetailTwoActivity.class);
-                startActivity(intent);
+                //intent.setClass(context,ArticleDetailTwoActivity.class);
+                //startActivity(intent);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                bundle.putString("key", "beauty");    //传递key=beauty
+                Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
+
+                ft.replace(R.id.content, article_list);
+                ft.addToBackStack(null);
+                bottomLinearLayout.setVisibility(View.GONE);
+                titleLayout.setVisibility(View.GONE);
+                ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
                 return false;
             }
         });
@@ -157,11 +166,21 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key", "skin_protect");    //传递key=beauty
+                //bundle.putString("key", "skin_protect");    //传递key=beauty
                 Intent intent=new Intent();
                 intent.putExtras(bundle);
-                intent.setClass(context,ArticleDetailTwoActivity.class);
-                startActivity(intent);
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                bundle.putString("key", "skin_protect");    //传递key=beauty
+                Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
+
+                ft.replace(R.id.content, article_list);
+                ft.addToBackStack(null);
+                bottomLinearLayout.setVisibility(View.GONE);
+                titleLayout.setVisibility(View.GONE);
+                ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
                 return false;
             }
         });
@@ -169,11 +188,20 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key", "prefume");    //传递key=beauty
+                //bundle.putString("key", "prefume");    //传递key=beauty
                 Intent intent=new Intent();
                 intent.putExtras(bundle);
-                intent.setClass(context,ArticleDetailTwoActivity.class);
-                startActivity(intent);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                bundle.putString("key", "perfume");    //传递key=beauty
+                Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
+
+                ft.replace(R.id.content, article_list);
+                ft.addToBackStack(null);
+                bottomLinearLayout.setVisibility(View.GONE);
+                titleLayout.setVisibility(View.GONE);
+                ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
                 return false;
             }
         });
@@ -181,11 +209,20 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key", "news");    //传递key=beauty
+                //bundle.putString("key", "news");    //传递key=beauty
                 Intent intent=new Intent();
                 intent.putExtras(bundle);
-                intent.setClass(context,ArticleDetailTwoActivity.class);
-                startActivity(intent);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                bundle.putString("key", "news");    //传递key=beauty
+                Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
+
+                ft.replace(R.id.content, article_list);
+                ft.addToBackStack(null);
+                bottomLinearLayout.setVisibility(View.GONE);
+                titleLayout.setVisibility(View.GONE);
+                ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
                 return false;
             }
         });

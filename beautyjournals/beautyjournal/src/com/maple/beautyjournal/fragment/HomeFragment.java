@@ -216,7 +216,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
             bundle.putString("key", "beauty");    //传递key=beauty
             Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
 
-            ft.replace(R.id.realtabcontent, article_list);
+            ft.replace(R.id.content, article_list);
             ft.addToBackStack(null);
             ft.commit();
             getActivity().getSupportFragmentManager().executePendingTransactions();
@@ -230,7 +230,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
             bundle.putString("key", "skin_protect");
             Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
 
-            ft.replace(R.id.realtabcontent, article_list);
+            ft.replace(R.id.content, article_list);
             ft.addToBackStack(null);
             ft.commit();
             getActivity().getSupportFragmentManager().executePendingTransactions();
@@ -243,7 +243,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
             bundle.putString("key", "perfume");
             Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
 
-            ft.replace(R.id.realtabcontent, article_list);
+            ft.replace(R.id.content, article_list);
             ft.addToBackStack(null);
             ft.commit();
             getActivity().getSupportFragmentManager().executePendingTransactions();
@@ -256,7 +256,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
             bundle.putString("key", "news");
             Fragment article_list = Fragment.instantiate(getActivity(), ArticleListFragment.class.getName(), bundle);
 
-            ft.replace(R.id.realtabcontent, article_list);
+            ft.replace(R.id.content, article_list);
             ft.addToBackStack(null);
             ft.commit();
             getActivity().getSupportFragmentManager().executePendingTransactions();
@@ -267,7 +267,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 
             Fragment product_cate = Fragment.instantiate(getActivity(), ProductCategoryFragment.class.getName(), null);
 
-            ft.replace(R.id.realtabcontent, product_cate);
+            ft.replace(R.id.content, product_cate);
             ft.addToBackStack(null);
             ft.commit();
             getActivity().getSupportFragmentManager().executePendingTransactions();

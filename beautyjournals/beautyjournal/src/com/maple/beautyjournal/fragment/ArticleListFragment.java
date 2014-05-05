@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
@@ -20,7 +23,6 @@ import com.i2mobi.net.HttpClientImplUtil;
 import com.i2mobi.net.NetUtil;
 import com.i2mobi.net.URLConstant;
 import com.maple.beautyjournal.ArticleDetailActivity;
-import com.maple.beautyjournal.MainActivity;
 import com.maple.beautyjournal.R;
 import com.maple.beautyjournal.adapter.ArticlePagerAdapter;
 import com.maple.beautyjournal.base.BaseFragment;
@@ -50,6 +52,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     private Activity parentActivity ;
     TextView mCateSwitcher;
     String key;
+    //LinearLayout linearLayout = null;
     //PagerAdapter adapter ;
     TextView pageCount;
     private RadioGroup radioGroup;
@@ -69,6 +72,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
     private int width ;
     float scale ;
     int paddingSize ;
+    Fragment myself ;
 
 
     /*
@@ -82,7 +86,7 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         mMenuItemHeight = Utils.dip2px(this.getActivity(), 40);
         Bundle bundle = getArguments();   //获得bundle数据，
         key = bundle.getString("key");
-
+        myself = this ;
         WindowManager windowManager = (WindowManager) getActivity()
                 .getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -243,7 +247,8 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         initBack(v);    //初始化返回按钮
        // initCategorySwitcher(v);
         viewPager = (ViewPager) v.findViewById(R.id.article_list_viewpager);
-
+        getActivity().findViewById(R.id.bottom).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.title_layout).setVisibility(View.GONE);
         //getActivity().findViewById(R.id.bottom).setVisibility(View.GONE);
 
         mArticleListMessageView = (TextView) v.findViewById(R.id.articleListEmptyTextView);
@@ -308,8 +313,16 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         btn_back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                //bundle.putString("key", "prefume");    //传递key=beauty
+                Fragment homeFragment = Fragment.instantiate(getActivity(), HomeFragment.class.getName());
 
-                startActivity(new Intent().setClass(getActivity(), MainActivity.class));
+                ft.remove(myself);
+                fm.popBackStack();
+                ft.commit();
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+
             }
 
         });
@@ -442,7 +455,11 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
                 catch(Exception e){
                     Log.d(TAG , "something wrong") ;
                 }
-                String result = util.doGet();
+                String result = "" ;
+                if (util != null){
+                    result = util.doGet();
+                }
+
                 Log.d(TAG, "result is " + result);
 
                 try {
@@ -517,10 +534,10 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-        	viewPager.setVisibility(View.GONE);
-            mArticleListMessageView.setVisibility(View.GONE);
+        	//viewPager.setVisibility(View.GONE);
+            //mArticleListMessageView.setVisibility(View.GONE);
             dismissProgress();
-            //RelativeLayout relativeLayout = (RelativeLayout)parentActivity.findViewById(R.id.parent_content) ;
+            FrameLayout relativeLayout = (FrameLayout)parentActivity.findViewById(R.id.realtabcontent) ;
             showProgress();
             //showProgressWithRoot(relativeLayout , null);
 
@@ -606,4 +623,11 @@ public class ArticleListFragment extends BaseFragment implements OnPageChangeLis
         parentActivity = activity ;
         super.onAttach(activity);
     }
+
+    @Override
+    public void onDestroy() {
+        dismissProgress();
+        super.onDestroy();
+    }
+
 }
